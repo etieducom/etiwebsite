@@ -1,0 +1,136 @@
+{
+  "identity": {
+    "name": "ETI Educom®",
+    "tagline": "The Computer Career School",
+    "tone": "Institutional, Trustworthy, Professional, Structured",
+    "target_audience": ["Students", "Parents", "Corporate Partners", "Franchise Seekers"]
+  },
+  "typography": {
+    "primary_font": "Manrope",
+    "secondary_font": "Inter",
+    "heading_styles": {
+      "h1": "text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900",
+      "h2": "text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4",
+      "h3": "text-2xl font-semibold text-slate-900 mb-2",
+      "body": "text-lg text-slate-600 leading-relaxed"
+    }
+  },
+  "colors": {
+    "primary": "#1E3A8A",
+    "secondary": "#F97316",
+    "accent": "#0D9488",
+    "background": {
+      "default": "#FFFFFF",
+      "alt": "#F8FAFC",
+      "dark": "#0F172A"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#475569",
+      "muted": "#94A3B8",
+      "inverse": "#FFFFFF"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#1E3A8A] hover:bg-[#172554] text-white font-semibold py-3 px-6 rounded-md shadow-sm transition-all duration-200",
+      "secondary": "bg-white text-[#1E3A8A] border border-[#1E3A8A] hover:bg-slate-50 font-semibold py-3 px-6 rounded-md transition-all duration-200",
+      "cta": "bg-[#F97316] hover:bg-[#EA580C] text-white font-bold py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+    },
+    "cards": {
+      "default": "bg-white rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow duration-200",
+      "feature": "bg-slate-50 rounded-xl p-8 hover:bg-white hover:shadow-lg transition-all duration-300 border border-slate-100",
+      "testimonial": "bg-white rounded-xl p-8 shadow-sm border border-slate-100 relative"
+    },
+    "inputs": {
+      "default": "w-full px-4 py-3 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1E3A8A] focus:border-transparent transition-all duration-200 bg-slate-50 focus:bg-white"
+    }
+  },
+  "layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_spacing": "py-16 md:py-24",
+    "grid_gap": "gap-8 md:gap-12"
+  },
+  "motion": {
+    "fade_in_up": {
+      "initial": { "opacity": 0, "y": 20 },
+      "whileInView": { "opacity": 1, "y": 0 },
+      "viewport": { "once": true },
+      "transition": { "duration": 0.5, "ease": "easeOut" }
+    },
+    "stagger_children": {
+      "visible": { "transition": { "staggerChildren": 0.1 } }
+    }
+  },
+  "assets": {
+    "images": {
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80",
+        "alt": "Students collaborating in a modern computer lab"
+      },
+      "md_profile": {
+        "url": "https://images.pexels.com/photos/7581115/pexels-photo-7581115.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "alt": "Managing Director Portrait"
+      },
+      "career_tracks": {
+        "foundation": {
+          "url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80",
+          "alt": "Student typing code"
+        },
+        "design": {
+          "url": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80",
+          "alt": "Digital designer working"
+        },
+        "networking": {
+          "url": "https://images.unsplash.com/photo-1558494949-ef526b01201b?auto=format&fit=crop&q=80",
+          "alt": "Network server room"
+        },
+        "software": {
+          "url": "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80",
+          "alt": "Software development code on screen"
+        }
+      },
+      "educonnect": {
+        "url": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80",
+        "alt": "University campus graduation"
+      },
+      "franchise": {
+        "url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80",
+        "alt": "Business handshake meeting"
+      }
+    },
+    "icons": "Use 'lucide-react' for all UI icons (e.g., BookOpen, Users, Award, Monitor, Briefcase, GraduationCap).",
+    "logos": {
+      "microsoft": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+      "adobe": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Adobe_Systems_logo_and_wordmark.svg",
+      "google": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+      "aws": "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Use 'Manrope' for all Headings and 'Inter' for body text. Add these fonts via Google Fonts in index.html.",
+    "Implement a sticky header with a clean white background and shadow-sm.",
+    "Ensure the Hero section uses a high-quality image on the right and text on the left (or balanced center) for a professional look.",
+    "Use the 'Bento Grid' style for the 'Overview' section to display stats and key features.",
+    "The 'Career Tracks' section should use hover-elevated cards with clear icons and 'Learn More' buttons.",
+    "Testimonials should be a slider or a clean 3-column grid.",
+    "Contact form must be clean, with floating labels or clear top labels, using the defined input styles.",
+    "Do NOT use heavy gradients. Use subtle slate-50 backgrounds to differentiate sections.",
+    "Ensure all interactive elements have data-testid attributes.",
+    "Use 'framer-motion' for subtle scroll animations (fade-in-up).",
+    "The primary color #1E3A8A should be dominant in the header, footer, and primary buttons.",
+    "Use the specific image URLs provided in the assets section.",
+    "For the 'Certification Partners', use a marquee slider with grayscale logos that turn color on hover."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) where appropriate (e.g., sticky nav).",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures or noise overlays can separate good from extraordinary.",
+    "Never use AI assistant Emoji characters like 🤖🧠 etc.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN."
+  ]
+}
