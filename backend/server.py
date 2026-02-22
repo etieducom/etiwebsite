@@ -22,11 +22,92 @@ db = client[os.environ.get('DB_NAME', 'test_database')]
 # LLM Key
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
 
+# Admin Password
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+
 # Create the main app
 app = FastAPI(title="ETI Educom API", version="3.0.0")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
+
+
+# ============ Admin Auth Models ============
+
+class AdminLogin(BaseModel):
+    password: str
+
+
+class AdminLoginResponse(BaseModel):
+    success: bool
+    message: str
+    token: Optional[str] = None
+
+
+# ============ Summer Training Lead Models ============
+
+class SummerTrainingLead(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    phone: str
+    program_interest: str
+    duration: str = "6 weeks"
+    status: str = "new"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class SummerTrainingLeadCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=100)
+    email: EmailStr
+    phone: str = Field(..., min_length=10)
+    program_interest: str = Field(..., min_length=2)
+    duration: str = "6 weeks"
+
+
+class SummerTrainingLeadResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    phone: str
+    program_interest: str
+    duration: str
+    status: str
+    created_at: str
+
+
+# ============ Quick Enquiry Models ============
+
+class QuickEnquiry(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    phone: str
+    email: Optional[str] = None
+    interest: str
+    source: str = "homepage"
+    status: str = "new"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class QuickEnquiryCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=100)
+    phone: str = Field(..., min_length=10)
+    email: Optional[str] = None
+    interest: str = Field(..., min_length=2)
+    source: str = "homepage"
+
+
+class QuickEnquiryResponse(BaseModel):
+    id: str
+    name: str
+    phone: str
+    email: Optional[str]
+    interest: str
+    source: str
+    status: str
+    created_at: str
 
 
 # ============ Models ============
