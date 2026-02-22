@@ -154,7 +154,7 @@ const AdminPage = () => {
 
   const fetchData = async () => {
     try {
-      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes] = await Promise.all([
+      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes] = await Promise.all([
         axios.get(`${API}/events?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/jobs?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/reviews?active_only=false`).catch(() => ({ data: [] })),
@@ -166,7 +166,8 @@ const AdminPage = () => {
         axios.get(`${API}/franchise-enquiry`).catch(() => ({ data: [] })),
         axios.get(`${API}/counselling-leads`).catch(() => ({ data: [] })),
         axios.get(`${API}/summer-training-leads`).catch(() => ({ data: [] })),
-        axios.get(`${API}/quick-enquiry`).catch(() => ({ data: [] }))
+        axios.get(`${API}/quick-enquiry`).catch(() => ({ data: [] })),
+        axios.get(`${API}/technical-seo`).catch(() => ({ data: {} }))
       ]);
       setEvents(eventsRes.data);
       setJobs(jobsRes.data);
@@ -180,6 +181,18 @@ const AdminPage = () => {
       setCounsellingLeads(counsellingRes.data);
       setSummerLeads(summerRes.data);
       setQuickEnquiries(quickRes.data);
+      setTechnicalSeo(techSeoRes.data || {});
+      // Pre-populate form if data exists
+      if (techSeoRes.data && Object.keys(techSeoRes.data).length > 0) {
+        setTechSeoForm({
+          google_analytics_id: techSeoRes.data.google_analytics_id || "",
+          google_tag_manager_id: techSeoRes.data.google_tag_manager_id || "",
+          facebook_pixel_id: techSeoRes.data.facebook_pixel_id || "",
+          sitemap_url: techSeoRes.data.sitemap_url || "",
+          robots_txt: techSeoRes.data.robots_txt || "",
+          custom_head_scripts: techSeoRes.data.custom_head_scripts || ""
+        });
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
