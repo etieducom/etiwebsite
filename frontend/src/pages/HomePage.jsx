@@ -724,81 +724,60 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Why ETI Section - Creative */}
-      <section className="py-20 md:py-28 bg-[#0a0a0a] text-white overflow-hidden" data-testid="why-section">
+      {/* Why ETI Section - Minimal */}
+      <section className="py-20 bg-white" data-testid="why-section">
         <div className="container-main">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div {...fadeInUp}>
-              <Badge className="bg-white/10 text-white mb-6 border-0">
-                <Sparkles className="w-4 h-4 mr-1" />
-                Why ETI Educom
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Poppins'] leading-tight">
-                We Don't Just Teach.<br/>
-                <span className="text-[#1545ea]">We Transform Careers.</span>
+          <div className="max-w-4xl mx-auto">
+            <motion.div {...fadeInUp} className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+                Why ETI Educom?
               </h2>
-              <p className="text-gray-400 mb-10 text-lg leading-relaxed">
-                While others offer courses, we build complete career trajectories. 
-                Our students don't just learn — they evolve into industry-ready professionals.
+              <p className="text-[#4a4a4a] text-lg">
+                We build careers, not just skills
               </p>
-              
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#1545ea]/50 transition-colors">
-                  <Rocket className="w-8 h-8 text-[#1545ea] mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Career-First Approach</h4>
-                  <p className="text-sm text-gray-400">Every module designed for job outcomes</p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#1545ea]/50 transition-colors">
-                  <Globe className="w-8 h-8 text-[#1545ea] mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Global Certifications</h4>
-                  <p className="text-sm text-gray-400">Microsoft, Adobe, Google certified</p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#1545ea]/50 transition-colors">
-                  <Target className="w-8 h-8 text-[#1545ea] mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Structured Tracks</h4>
-                  <p className="text-sm text-gray-400">Clear pathways, not random courses</p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-[#1545ea]/50 transition-colors">
-                  <Briefcase className="w-8 h-8 text-[#1545ea] mb-3" />
-                  <h4 className="font-semibold text-white mb-1">Placement Support</h4>
-                  <p className="text-sm text-gray-400">From training to job placement</p>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <Link to="/about">
-                  <Button className="bg-[#1545ea] hover:bg-[#0d36c4] text-white px-8">
-                    Discover Our Story
-                    <ChevronRight className="w-5 h-5" />
-                  </Button>
-                </Link>
-              </div>
             </motion.div>
+            
+            <div className="grid md:grid-cols-4 gap-6">
+              <motion.div {...fadeInUp} className="text-center p-6">
+                <div className="w-14 h-14 bg-[#1545ea]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Rocket className="w-7 h-7 text-[#1545ea]" />
+                </div>
+                <h4 className="font-semibold text-[#1a1a1a] mb-2">Career-First</h4>
+                <p className="text-sm text-[#717171]">Job-oriented curriculum</p>
+              </motion.div>
+              
+              <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="text-center p-6">
+                <div className="w-14 h-14 bg-[#1545ea]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Globe className="w-7 h-7 text-[#1545ea]" />
+                </div>
+                <h4 className="font-semibold text-[#1a1a1a] mb-2">Global Certs</h4>
+                <p className="text-sm text-[#717171]">Microsoft, Adobe, Google</p>
+              </motion.div>
+              
+              <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="text-center p-6">
+                <div className="w-14 h-14 bg-[#1545ea]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-7 h-7 text-[#1545ea]" />
+                </div>
+                <h4 className="font-semibold text-[#1a1a1a] mb-2">Structured</h4>
+                <p className="text-sm text-[#717171]">Clear career pathways</p>
+              </motion.div>
+              
+              <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className="text-center p-6">
+                <div className="w-14 h-14 bg-[#1545ea]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Briefcase className="w-7 h-7 text-[#1545ea]" />
+                </div>
+                <h4 className="font-semibold text-[#1a1a1a] mb-2">Placement</h4>
+                <p className="text-sm text-[#717171]">Job assistance support</p>
+              </motion.div>
+            </div>
 
-            <motion.div 
-              {...fadeInUp}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative"
-            >
-              {/* Stats Display */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-[#1545ea] to-[#0d36c4] rounded-2xl p-8 text-center">
-                  <p className="text-5xl md:text-6xl font-bold mb-2">5K+</p>
-                  <p className="text-blue-100">Students Trained</p>
-                </div>
-                <div className="bg-white/5 rounded-2xl p-8 text-center border border-white/10">
-                  <p className="text-5xl md:text-6xl font-bold text-[#1545ea] mb-2">8+</p>
-                  <p className="text-gray-400">Years Experience</p>
-                </div>
-                <div className="bg-white/5 rounded-2xl p-8 text-center border border-white/10">
-                  <p className="text-5xl md:text-6xl font-bold text-[#1545ea] mb-2">4</p>
-                  <p className="text-gray-400">Career Tracks</p>
-                </div>
-                <div className="bg-gradient-to-br from-[#1545ea] to-[#0d36c4] rounded-2xl p-8 text-center">
-                  <p className="text-5xl md:text-6xl font-bold mb-2">95%</p>
-                  <p className="text-blue-100">Success Rate</p>
-                </div>
-              </div>
+            <motion.div {...fadeInUp} className="text-center mt-8">
+              <Link to="/about">
+                <Button variant="outline" className="btn-secondary">
+                  Learn More About Us
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </div>
