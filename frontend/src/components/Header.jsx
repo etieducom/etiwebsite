@@ -17,6 +17,15 @@ import {
 const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
 const LOGO_BLUE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/zm56gptp_eti%20.png";
 
+// Fallback to text logo if image doesn't load
+const TextLogo = () => (
+  <div className="flex items-center">
+    <span className="text-2xl font-bold text-[#1545ea] font-['Manrope']">ETI</span>
+    <span className="text-2xl font-bold text-[#1a1a1a] font-['Manrope'] ml-1">EDUCOM</span>
+    <span className="text-[#1545ea] text-sm ml-0.5">®</span>
+  </div>
+);
+
 const careerTracks = [
   {
     id: "computer-foundation",
@@ -74,8 +83,13 @@ const Header = () => {
               <img 
                 src={LOGO_BLUE} 
                 alt="ETI Educom" 
-                className="h-12 w-auto"
+                className="h-14 w-auto object-contain"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
               />
+              <TextLogo />
             </Link>
 
             {/* Desktop Navigation */}
