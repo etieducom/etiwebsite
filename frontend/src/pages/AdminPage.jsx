@@ -167,6 +167,8 @@ const AdminPage = () => {
       setSeoSettings(seoRes.data);
       setFranchiseEnquiries(franchiseRes.data);
       setCounsellingLeads(counsellingRes.data);
+      setSummerLeads(summerRes.data);
+      setQuickEnquiries(quickRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
