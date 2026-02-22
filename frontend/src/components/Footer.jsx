@@ -5,13 +5,21 @@ import {
   Mail, 
   MapPin, 
   Facebook, 
-  Twitter, 
   Linkedin, 
   Instagram,
+  Youtube,
   ChevronRight
 } from "lucide-react";
 
 const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
+
+// Social Media Links
+const SOCIAL_LINKS = {
+  facebook: "https://www.facebook.com/etieducom",
+  instagram: "https://www.instagram.com/etieducom/",
+  linkedin: "https://www.linkedin.com/company/etieducom",
+  youtube: "https://www.youtube.com/@ETIEducomofficial"
+};
 
 const Footer = () => {
   const quickLinks = [
