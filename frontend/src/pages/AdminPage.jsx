@@ -563,6 +563,12 @@ const AdminPage = () => {
               <TabsTrigger value="counselling" className="flex items-center gap-1 text-xs">
                 <GraduationCap className="w-3 h-3" /> Leads ({counsellingLeads.length})
               </TabsTrigger>
+              <TabsTrigger value="summer" className="flex items-center gap-1 text-xs">
+                <Sun className="w-3 h-3" /> Summer ({summerLeads.length})
+              </TabsTrigger>
+              <TabsTrigger value="quick" className="flex items-center gap-1 text-xs">
+                <MessageSquare className="w-3 h-3" /> Quick ({quickEnquiries.length})
+              </TabsTrigger>
             </TabsList>
 
             {/* Events Tab */}
