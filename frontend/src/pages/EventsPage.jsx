@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { Calendar, MapPin, Clock, ChevronRight } from "lucide-react";
+import { Calendar, MapPin, Clock, ChevronRight, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "../components/ui/dialog";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -19,6 +26,7 @@ const fadeInUp = {
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     fetchEvents();
@@ -40,7 +48,7 @@ const EventsPage = () => {
     {
       id: "1",
       title: "Career Guidance Workshop",
-      description: "Join our expert counsellors for a comprehensive career guidance session covering IT industry trends and opportunities.",
+      description: "Join our expert counsellors for a comprehensive career guidance session covering IT industry trends and opportunities. Learn about the latest career paths in technology, understand industry requirements, and get personalized advice on how to build your career roadmap. This workshop is ideal for students, fresh graduates, and working professionals looking to transition into IT.",
       event_date: "2025-02-15",
       event_time: "10:00 AM",
       location: "ETI Educom Head Office",
@@ -49,7 +57,7 @@ const EventsPage = () => {
     {
       id: "2",
       title: "Web Development Bootcamp",
-      description: "A hands-on bootcamp introducing the fundamentals of web development using modern technologies.",
+      description: "A hands-on bootcamp introducing the fundamentals of web development using modern technologies. Learn HTML, CSS, JavaScript basics and get introduced to popular frameworks. Perfect for beginners who want to explore web development as a career option. Includes practical exercises and take-home projects.",
       event_date: "2025-02-22",
       event_time: "9:00 AM",
       location: "Online",
@@ -58,7 +66,7 @@ const EventsPage = () => {
     {
       id: "3",
       title: "Cybersecurity Awareness Seminar",
-      description: "Learn about the latest cybersecurity threats and best practices to protect yourself and your organization.",
+      description: "Learn about the latest cybersecurity threats and best practices to protect yourself and your organization. Topics include phishing attacks, password security, data protection, and safe browsing habits. Essential knowledge for anyone working with computers and the internet.",
       event_date: "2025-03-05",
       event_time: "2:00 PM",
       location: "ETI Educom Head Office",
@@ -67,6 +75,11 @@ const EventsPage = () => {
   ];
 
   const displayEvents = events.length > 0 ? events : sampleEvents;
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  };
 
   return (
     <div className="pt-[72px]" data-testid="events-page">
@@ -78,7 +91,7 @@ const EventsPage = () => {
               <Calendar className="w-4 h-4 mr-1" />
               Upcoming Events
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-['Manrope']">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
               Events
             </h1>
             <p className="text-lg text-[#4a4a4a] max-w-2xl mx-auto">
@@ -110,13 +123,17 @@ const EventsPage = () => {
                   {...fadeInUp}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="event-card h-full" data-testid={`event-${event.id}`}>
+                  <Card 
+                    className="event-card h-full cursor-pointer" 
+                    data-testid={`event-${event.id}`}
+                    onClick={() => setSelectedEvent(event)}
+                  >
                     {event.image_url && (
                       <div className="h-48 overflow-hidden">
                         <img 
                           src={event.image_url}
                           alt={event.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                     )}
@@ -130,15 +147,18 @@ const EventsPage = () => {
                           {event.event_time}
                         </Badge>
                       </div>
-                      <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 font-['Manrope']">
+                      <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 font-['Poppins']">
                         {event.title}
                       </h3>
-                      <p className="text-sm text-[#4a4a4a] mb-4 line-clamp-3">
+                      <p className="text-sm text-[#4a4a4a] mb-4 line-clamp-2">
                         {event.description}
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-[#717171]">
-                        <MapPin className="w-4 h-4" />
-                        {event.location}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm text-[#717171]">
+                          <MapPin className="w-4 h-4" />
+                          {event.location}
+                        </div>
+                        <span className="text-[#1545ea] text-sm font-medium">View Details</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -149,20 +169,90 @@ const EventsPage = () => {
         </div>
       </section>
 
+      {/* Event Detail Modal */}
+      <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          {selectedEvent && (
+            <>
+              {selectedEvent.image_url && (
+                <div className="h-64 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-lg">
+                  <img 
+                    src={selectedEvent.image_url}
+                    alt={selectedEvent.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              <DialogHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge className="bg-[#1545ea]/10 text-[#1545ea]">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    {formatDate(selectedEvent.event_date)}
+                  </Badge>
+                  <Badge variant="outline">
+                    <Clock className="w-3 h-3 mr-1" />
+                    {selectedEvent.event_time}
+                  </Badge>
+                </div>
+                <DialogTitle className="text-2xl font-bold text-[#1a1a1a] font-['Poppins']">
+                  {selectedEvent.title}
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="mt-4">
+                <p className="text-[#4a4a4a] leading-relaxed mb-6">
+                  {selectedEvent.description}
+                </p>
+                
+                <div className="bg-[#ebebeb] rounded-lg p-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#1545ea] rounded-lg flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-[#717171]">Location</p>
+                      <p className="font-semibold text-[#1a1a1a]">{selectedEvent.location}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <Link to="/contact" className="flex-1">
+                    <Button className="btn-primary w-full">
+                      Register / Enquire
+                      <ChevronRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                  <Button 
+                    variant="outline" 
+                    className="btn-secondary"
+                    onClick={() => setSelectedEvent(null)}
+                  >
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
       {/* CTA */}
       <section className="py-20 section-grey">
         <div className="container-main text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4 font-['Manrope']">
+            <h2 className="text-3xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
               Want to Host an Event?
             </h2>
             <p className="text-[#4a4a4a] mb-8 max-w-xl mx-auto">
               Partner with us to organize workshops, seminars, or training programs.
             </p>
-            <Button className="btn-primary">
-              Contact Us
-              <ChevronRight className="w-5 h-5" />
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-primary">
+                Contact Us
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
