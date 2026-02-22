@@ -141,12 +141,26 @@ const FreeCounsellingPage = () => {
             <div className="flex items-center gap-6 text-sm text-blue-200">
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
-                <span>2000+ Students Guided</span>
+                <span>5000+ Students Guided</span>
               </div>
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4" />
                 <span>Since 2017</span>
               </div>
+            </div>
+
+            {/* WhatsApp Button */}
+            <div className="mt-8">
+              <a 
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi, I'm interested in free career counselling at ETI Educom.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-6 py-3 rounded-full font-semibold transition-colors shadow-lg"
+                data-testid="whatsapp-btn"
+              >
+                <MessageCircle className="w-6 h-6" />
+                Click to WhatsApp
+              </a>
             </div>
           </div>
 
