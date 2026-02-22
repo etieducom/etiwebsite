@@ -108,6 +108,108 @@ const defaultPrograms = {
       "Frontend Frameworks (React/Angular)",
       "Version Control & DevOps Basics"
     ]
+  },
+  "digital-marketing": {
+    title: "Digital Marketing",
+    subtitle: "Master Online Marketing Strategies",
+    description: "Become a digital marketing expert with comprehensive training in SEO, social media marketing, content marketing, paid advertising, and analytics. Learn to create and execute successful marketing campaigns.",
+    icon: "Palette",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
+    duration: "4-6 months",
+    outcomes: ["Digital Marketing Manager", "SEO Specialist", "Social Media Manager", "Content Strategist", "PPC Specialist"],
+    suitable_for: "Marketing Professionals, Business Owners, Fresh Graduates",
+    certifications: ["Google Digital Marketing Certification", "Meta Blueprint Certification", "HubSpot Inbound Marketing"],
+    modules: [
+      "Search Engine Optimization (SEO)",
+      "Search Engine Marketing (Google Ads)",
+      "Social Media Marketing",
+      "Content Marketing Strategy",
+      "Email Marketing Automation",
+      "Analytics & Reporting",
+      "Conversion Rate Optimization"
+    ]
+  },
+  "ethical-hacking": {
+    title: "Ethical Hacking",
+    subtitle: "Become a Cybersecurity Expert",
+    description: "Learn ethical hacking and penetration testing techniques to protect organizations from cyber threats. Master security tools, vulnerability assessment, and defensive strategies used by professional security analysts.",
+    icon: "Network",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200",
+    duration: "6-9 months",
+    outcomes: ["Ethical Hacker", "Penetration Tester", "Security Analyst", "Cybersecurity Consultant"],
+    suitable_for: "IT Professionals, Networking Enthusiasts, Security Aspirants",
+    certifications: ["Certified Ethical Hacker (CEH)", "CompTIA Security+", "OSCP"],
+    modules: [
+      "Networking & System Fundamentals",
+      "Linux Administration",
+      "Vulnerability Assessment",
+      "Penetration Testing Techniques",
+      "Web Application Security",
+      "Network Security & Firewalls",
+      "Malware Analysis",
+      "Incident Response"
+    ]
+  },
+  "graphic-design": {
+    title: "Graphic Design",
+    subtitle: "Create Visual Masterpieces",
+    description: "Master the art of visual communication with professional graphic design training. Learn industry-standard tools like Adobe Photoshop, Illustrator, and InDesign to create stunning designs for print and digital media.",
+    icon: "Palette",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1200",
+    duration: "4-8 months",
+    outcomes: ["Graphic Designer", "Visual Designer", "Brand Designer", "Print Designer", "Digital Artist"],
+    suitable_for: "Creative Individuals, Art Enthusiasts, Marketing Professionals",
+    certifications: ["Adobe Certified Professional", "Canva Design Certification"],
+    modules: [
+      "Design Principles & Color Theory",
+      "Adobe Photoshop Mastery",
+      "Adobe Illustrator Mastery",
+      "Adobe InDesign for Print",
+      "Logo & Brand Identity Design",
+      "Social Media Graphics",
+      "Portfolio Development"
+    ]
+  },
+  "data-analytics": {
+    title: "Data Analytics",
+    subtitle: "Turn Data into Insights",
+    description: "Master data analytics skills to make data-driven decisions. Learn statistical analysis, data visualization, and business intelligence tools to extract meaningful insights from complex datasets.",
+    icon: "Monitor",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
+    duration: "6-9 months",
+    outcomes: ["Data Analyst", "Business Analyst", "BI Developer", "Data Visualization Specialist"],
+    suitable_for: "Analysts, Business Professionals, Statistics Enthusiasts",
+    certifications: ["Google Data Analytics Certificate", "Microsoft Power BI Certification", "Tableau Desktop Specialist"],
+    modules: [
+      "Excel for Data Analysis",
+      "SQL & Database Querying",
+      "Python for Data Analysis",
+      "Statistical Analysis",
+      "Data Visualization (Power BI/Tableau)",
+      "Business Intelligence",
+      "Machine Learning Basics"
+    ]
+  },
+  "full-stack-web-development": {
+    title: "Full Stack Web Development",
+    subtitle: "Build Complete Web Applications",
+    description: "Become a complete full-stack web developer with comprehensive training in frontend and backend technologies. Learn to build, deploy, and maintain modern web applications from scratch.",
+    icon: "Code",
+    image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=1200",
+    duration: "9-12 months",
+    outcomes: ["Full Stack Developer", "Frontend Developer", "Backend Developer", "MERN Stack Developer"],
+    suitable_for: "Programming Enthusiasts, Career Changers, IT Professionals",
+    certifications: ["AWS Certified Developer", "Meta Front-End Developer", "MongoDB Developer Certification"],
+    modules: [
+      "HTML5, CSS3 & Responsive Design",
+      "JavaScript & ES6+",
+      "React.js Frontend Framework",
+      "Node.js & Express Backend",
+      "MongoDB Database",
+      "RESTful API Development",
+      "Git & Version Control",
+      "Deployment & DevOps Basics"
+    ]
   }
 };
 
