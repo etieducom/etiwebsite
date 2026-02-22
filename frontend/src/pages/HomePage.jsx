@@ -828,6 +828,108 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Trending Skills Section */}
+      <section className="py-20 bg-white" data-testid="trending-section">
+        <div className="container-main">
+          <motion.div {...fadeInUp} className="text-center mb-12">
+            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              Most Popular
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+              Trending Skills
+            </h2>
+            <p className="text-[#4a4a4a] max-w-2xl mx-auto">
+              The most in-demand skills employers are hiring for right now
+            </p>
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            {trendingSkills.map((skill, index) => (
+              <motion.div
+                key={skill.id}
+                {...fadeInUp}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <Link to={`/programs/${skill.id}`}>
+                  <div className="group flex items-center gap-3 bg-white border-2 border-[#ebebeb] hover:border-[#1545ea] rounded-full px-6 py-3 transition-all hover:shadow-lg">
+                    <div className="w-10 h-10 bg-[#1545ea]/10 group-hover:bg-[#1545ea] rounded-full flex items-center justify-center text-[#1545ea] group-hover:text-white transition-colors">
+                      {skill.icon}
+                    </div>
+                    <span className="font-semibold text-[#1a1a1a]">{skill.title}</span>
+                    <Badge className="bg-[#1545ea]/10 text-[#1545ea] text-xs">{skill.tag}</Badge>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Placement Partners Section */}
+      <section className="py-20 section-grey" data-testid="placement-partners-section">
+        <div className="container-main">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Text */}
+            <motion.div {...fadeInUp}>
+              <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
+                <Briefcase className="w-4 h-4 mr-1" />
+                Career Launchpad
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+                Placement Partners
+              </h2>
+              <p className="text-[#4a4a4a] mb-6 leading-relaxed">
+                Our students are placed in leading companies across India. 
+                We maintain strong industry partnerships to ensure you get the best career opportunities.
+              </p>
+              <div className="flex items-center gap-6">
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-[#1545ea]">50+</p>
+                  <p className="text-sm text-[#717171]">Partner Companies</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-[#1545ea]">90%</p>
+                  <p className="text-sm text-[#717171]">Placement Rate</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Animated Logos */}
+            <motion.div 
+              {...fadeInUp}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative h-[280px] overflow-hidden"
+            >
+              <div className="placement-logos-grid">
+                {[...placementPartners, ...placementPartners].map((partner, index) => (
+                  <motion.div
+                    key={`${partner.name}-${index}`}
+                    className="placement-logo-item bg-white rounded-xl p-4 shadow-sm border border-[#ebebeb] flex items-center justify-center"
+                    animate={{
+                      x: [0, Math.random() * 20 - 10, 0],
+                      y: [0, Math.random() * 20 - 10, 0],
+                    }}
+                    transition={{
+                      duration: 3 + Math.random() * 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: index * 0.2
+                    }}
+                  >
+                    <img 
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-[#1545ea]" data-testid="cta-section">
         <div className="container-main text-center">
