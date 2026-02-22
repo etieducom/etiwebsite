@@ -905,7 +905,7 @@ const HomePage = () => {
                 {[...placementPartners, ...placementPartners].map((partner, index) => (
                   <motion.div
                     key={`${partner.name}-${index}`}
-                    className="placement-logo-item bg-white rounded-xl p-4 shadow-sm border border-[#ebebeb] flex items-center justify-center"
+                    className="placement-logo-item bg-white rounded-xl shadow-sm border border-[#ebebeb] flex items-center justify-center"
                     animate={{
                       x: [0, Math.random() * 20 - 10, 0],
                       y: [0, Math.random() * 20 - 10, 0],
@@ -917,11 +917,12 @@ const HomePage = () => {
                       delay: index * 0.2
                     }}
                   >
-                    <img 
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity"
-                    />
+                    <span 
+                      className="text-lg font-bold"
+                      style={{ color: partner.color }}
+                    >
+                      {partner.name}
+                    </span>
                   </motion.div>
                 ))}
               </div>
