@@ -48,14 +48,9 @@ const Footer = () => {
               src={LOGO_WHITE} 
               alt="ETI Educom" 
               className="h-16 mb-6 object-contain"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
-              }}
             />
-            <TextLogoWhite />
             <p className="text-[#b0b0b0] text-sm leading-relaxed mb-6 max-w-sm">
-              ETI Educom® is India's leading Computer Career School, offering structured 
+              ETI Educom is India's leading Computer Career School, offering structured 
               career pathways through certified training programs since 2017.
             </p>
             <p className="text-[#b0b0b0] text-xs">
@@ -110,11 +105,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Career Tracks */}
+          {/* Programs */}
           <div>
-            <h4 className="footer-heading">Career Tracks</h4>
+            <h4 className="footer-heading">Programs</h4>
             <ul className="space-y-3">
-              {careerTracks.map((link) => (
+              {programs.map((link) => (
                 <li key={link.href}>
                   <Link to={link.href} className="footer-link flex items-center gap-1 hover:text-white">
                     <ChevronRight className="w-3 h-3" />
