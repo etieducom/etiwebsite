@@ -7,30 +7,6 @@
 **Positioning:** The Computer Career School  
 **Certification Status:** Certiport Authorized Testing Center (CATC)
 
-## User Personas
-1. **Students** - Seeking structured computer career education
-2. **Parents** - Looking for trustworthy, governance-oriented institutes  
-3. **Franchise Seekers** - Entrepreneurs wanting to start education centers
-4. **Corporate Partners** - Companies seeking training partnerships
-5. **Admin Users** - Staff managing content, reviews, events, and programs
-
-## Core Requirements
-- Institutional, professional tone (not coaching center feel)
-- No "100% placement" claims or sales urgency
-- Clean white layout with blue (#1545ea) primary color
-- Grey accent color: #ebebeb
-- Poppins font throughout the website
-- Multi-page SPA architecture with React Router
-
-## Design System
-- **Primary Font:** Poppins (headings and body)
-- **Primary Color:** #1545ea (Blue)
-- **Grey Color:** #ebebeb
-- **White:** #ffffff
-- **Text Dark:** #1a1a1a
-- **Text Muted:** #717171
-- **Animations:** Framer Motion fade-in-up effects
-
 ## Technical Stack
 - **Frontend:** React 19, React Router, Tailwind CSS, Shadcn/UI, Framer Motion
 - **Backend:** FastAPI, Motor (async MongoDB)
@@ -41,137 +17,129 @@
 
 ## What's Been Implemented
 
-### Phase 1 - Initial Build (DONE)
-- Basic single-page website structure
-- Hero section with CTAs
-- Career tracks overview
-- Contact form
-
-### Phase 2 - Multi-Page Architecture (DONE)
-- Converted to multi-page SPA with React Router
-- Pages: Home, About, Founder's Desk, Programs, Events, Hire From Us, Join Team, Franchise, Verify Certificate, Contact, Admin
-- Basic mega menu navigation
-
-### Phase 3 - Dynamic Content & AI (DONE - Feb 22, 2026)
-- Programs Mega Menu with 4 categories
-- Student Reviews Slider on homepage
-- Latest Events Section on homepage
+### Phase 1-3 - Foundation (DONE)
+- Multi-page SPA architecture
+- Programs Mega Menu with categories
+- Student Reviews Slider, Events Section
 - AI Skills Guider Chatbot
 - Admin Dashboard for Events, Reviews, Programs, Jobs
 
-### Phase 4 - Content Management Expansion (DONE - Feb 22, 2026)
+### Phase 4 - Content Management (DONE - Feb 22, 2026)
+- Blogs, FAQ, Privacy Policy pages
+- Franchise enquiry form (comprehensive)
+- Free Counselling landing page
+- SEO management in admin
+- Removed Emergent badge
+- Removed ETI EDUCOM text from navbar
 
-#### UI Updates
-- ✅ **Navbar** - Removed "ETI EDUCOM" text, only logo image shown
-- ✅ **CTA Button** - Changed from "Enquire Now" to "Free Counselling"
-- ✅ **Emergent Badge** - Removed from all pages
+### Phase 5 - Current Implementation (DONE - Feb 22, 2026)
 
-#### New Pages
-- ✅ **Free Counselling Landing Page** (`/free-counselling`)
-  - Aggressive, professional design
-  - No header/footer (pure landing page)
-  - Lead capture form: Name, Phone, Education, Preferred Track
-  - Trust badges and benefits section
-- ✅ **Blogs Page** (`/blogs`)
-  - Search functionality
-  - Category filters
-  - Blog cards with featured image, excerpt, read time
-- ✅ **Blog Detail Page** (`/blogs/:slug`)
-  - Full article content with HTML support
-  - Social share buttons (Facebook, Twitter, LinkedIn)
-  - Related blogs section
-- ✅ **FAQ Page** (`/faq`)
-  - Accordion-style Q&A
-  - Search functionality
-  - Category filters
-- ✅ **Privacy Policy Page** (`/privacy-policy`)
-  - Complete legal content
+#### Admin Login Protection
+- ✅ Simple password-based authentication
+- ✅ Password: `etieducom@admin2025` (stored in backend/.env)
+- ✅ Token-based session management
+- ✅ Logout functionality
 
-#### Updated Pages
-- ✅ **Franchise Page** - Comprehensive enquiry form with:
-  - Name, Email, Phone, City
-  - Proposed Location/Area
-  - Investment Budget (dropdown)
-  - Experience/Background
-  - Resume URL (optional)
-  - Why Franchise (motivation)
-- ✅ **Events Page** - Modal popup for event details
-- ✅ **Homepage** - Latest blogs section added
-- ✅ **Footer** - Privacy Policy link added
-- ✅ **Resources Dropdown** - Events, Blogs, FAQ links
+#### Summer Training Landing Page (`/summer-training`)
+- ✅ Standalone page (no header/footer)
+- ✅ Hero section with registration form
+- ✅ 14 Trending Programs:
+  - Python Programming
+  - Web Development
+  - Digital Marketing
+  - SEO & SEM
+  - Ethical Hacking
+  - Networking (CCNA)
+  - AutoCAD
+  - Graphic Design
+  - Data Science
+  - Cloud Computing
+  - MS Office Advanced
+  - App Development
+  - AI & Machine Learning
+  - Cybersecurity
+- ✅ Duration options: 6 Weeks / 6 Months
+
+#### Homepage Quick Enquiry Form
+- ✅ Replaced hero image with Quick Enquiry form
+- ✅ Fields: Name, Phone, Interest dropdown
+- ✅ Trust badges (2000+ Students, Since 2017)
+
+#### Social Media Links (Footer)
+- ✅ Facebook: https://www.facebook.com/etieducom
+- ✅ Instagram: https://www.instagram.com/etieducom/
+- ✅ LinkedIn: https://www.linkedin.com/company/etieducom
+- ✅ YouTube: https://www.youtube.com/@ETIEducomofficial
 
 #### Admin Panel Extensions
-- ✅ **Blogs Tab** - Create/delete blog posts with:
-  - Title, Slug, Excerpt, Content (HTML)
-  - Featured Image, Category, Tags
-  - Author, Read Time, SEO fields
-- ✅ **FAQs Tab** - Create/delete FAQs with categories
-- ✅ **SEO Tab** - Configure meta titles, descriptions, keywords per page
-- ✅ **Franchise Enquiries Tab** - View/delete franchise applications
-- ✅ **Counselling Leads Tab** - View/delete free counselling leads
+- ✅ Summer Training Leads tab
+- ✅ Quick Enquiries tab (homepage leads)
 
-### Backend APIs
-- `GET/POST/DELETE /api/blogs` - Blog management
-- `GET /api/blogs/:slug` - Single blog by slug
-- `GET/POST/DELETE /api/faqs` - FAQ management
-- `GET/POST /api/seo` - SEO settings (upsert)
-- `GET /api/seo/:page_slug` - Get SEO for specific page
-- `POST/GET/DELETE /api/franchise-enquiry` - Franchise enquiries
+---
+
+## API Endpoints
+
+### Authentication
+- `POST /api/admin/login` - Admin login
+- `POST /api/admin/verify` - Verify admin token
+
+### Lead Management
+- `POST/GET/DELETE /api/summer-training-leads` - Summer training leads
+- `POST/GET/DELETE /api/quick-enquiry` - Homepage quick enquiries
 - `POST/GET/DELETE /api/counselling-leads` - Free counselling leads
+- `POST/GET/DELETE /api/franchise-enquiry` - Franchise enquiries
+
+### Content Management
+- `GET/POST/DELETE /api/blogs` - Blog posts
+- `GET/POST/DELETE /api/faqs` - FAQs
+- `GET/POST /api/seo` - SEO settings
+- `GET/POST/DELETE /api/events` - Events
+- `GET/POST/DELETE /api/reviews` - Student reviews
+- `GET/POST/DELETE /api/programs` - Programs
+- `GET/POST/DELETE /api/jobs` - Job openings
+- `GET /api/contact` - Contact enquiries
 
 ---
 
 ## Database Collections
-- `events` - title, description, event_date, event_time, location, image_url, is_active
-- `reviews` - student_name, course, review_text, photo_url, rating, is_active
-- `programs` - title, slug, description, category, duration, outcomes, suitable_for, certifications, modules, icon
-- `job_openings` - title, department, location, type, description, requirements, is_active
-- `contact_enquiries` - name, email, phone, enquiry_type, message, status
-- `blogs` - title, slug, excerpt, content, featured_image, category, tags, author, read_time, meta_title, meta_description
-- `faqs` - question, answer, category, order, is_active
-- `seo_settings` - page_slug, meta_title, meta_description, meta_keywords, og_title, og_description, og_image
-- `franchise_enquiries` - name, email, phone, city, location, experience, resume_url, investment_budget, why_franchise
-- `counselling_leads` - name, phone, education, preferred_track, status
+- `summer_training_leads` - name, email, phone, program_interest, duration, status
+- `quick_enquiries` - name, phone, email, interest, source, status
+- `counselling_leads` - name, phone, education, preferred_track
+- `franchise_enquiries` - name, email, phone, city, location, experience, etc.
+- `blogs` - title, slug, excerpt, content, featured_image, category, tags
+- `faqs` - question, answer, category, order
+- `seo_settings` - page_slug, meta_title, meta_description
+- `events`, `reviews`, `programs`, `job_openings`, `contact_enquiries`
 
 ---
 
-## Test Results (Feb 22, 2026)
-- ✅ Backend: 100% (21/21 tests passed)
-- ✅ Frontend: 100% (all features verified)
-- Test reports: 
-  - `/app/test_reports/iteration_2.json` (Phase 3)
-  - `/app/test_reports/iteration_3.json` (Phase 4)
+## Test Results
+- ✅ Phase 3: 100% (21/21 backend, frontend verified)
+- ✅ Phase 4: 100% (21/21 backend, frontend verified)
+- ✅ Phase 5: 100% (18/18 backend, frontend verified)
+- Reports: `/app/test_reports/iteration_2.json`, `iteration_3.json`, `iteration_4.json`
+
+---
+
+## Admin Credentials
+**Password:** `etieducom@admin2025`
 
 ---
 
 ## Backlog
 
-### P0 (Critical) - COMPLETED
-- [x] Complete website structure
-- [x] Contact form functionality
-- [x] Multi-page architecture
-- [x] Admin dashboard for content management
-- [x] AI chatbot integration
-- [x] Dynamic reviews and events on homepage
-- [x] Blogs section with admin management
-- [x] FAQ page
-- [x] Franchise enquiry form
-- [x] Free counselling landing page
-- [x] SEO management in admin
+### P1 (High Priority)
+- [ ] Email notifications for new leads (Resend/SendGrid)
+- [ ] Edit functionality for admin items (currently create/delete only)
+- [ ] Image upload for content (instead of URLs)
 
-### P1 (High Priority) - PENDING
-- [ ] Admin authentication/login protection
-- [ ] Email notifications for new enquiries (Resend/SendGrid)
-- [ ] Edit functionality for admin items (currently only create/delete)
-
-### P2 (Medium Priority) - PENDING
-- [ ] Image upload for reviews, events, blogs (instead of URL input)
-- [ ] Student success stories gallery page
-- [ ] Blog comments/engagement system
-
-### P3 (Nice to Have) - FUTURE
-- [ ] Multi-language support (Hindi)
+### P2 (Medium Priority)
+- [ ] Blog comments/engagement
+- [ ] Student success stories gallery
 - [ ] Analytics integration (Google Analytics)
+
+### P3 (Future)
+- [ ] Multi-language support (Hindi)
 - [ ] Student portal login
 - [ ] Certificate management in admin
 
@@ -181,39 +149,15 @@
 ```
 /app/
 ├── backend/
-│   ├── .env
-│   ├── requirements.txt
-│   └── server.py
+│   ├── .env (ADMIN_PASSWORD added)
+│   └── server.py (new auth + lead APIs)
 └── frontend/
-    ├── .env
-    ├── public/
-    │   └── index.html (Emergent badge removed)
     ├── src/
-    │   ├── App.js
-    │   ├── App.css
-    │   ├── index.css
-    │   ├── components/
-    │   │   ├── Chatbot.jsx
-    │   │   ├── Header.jsx (logo only, no text)
-    │   │   └── Footer.jsx (Privacy Policy link)
-    │   └── pages/
-    │       ├── HomePage.jsx (with blogs section)
-    │       ├── AdminPage.jsx (10 tabs)
-    │       ├── BlogsPage.jsx (NEW)
-    │       ├── BlogDetailPage.jsx (NEW)
-    │       ├── FAQPage.jsx (NEW)
-    │       ├── PrivacyPolicyPage.jsx (NEW)
-    │       ├── FreeCounsellingPage.jsx (NEW)
-    │       ├── FranchisePage.jsx (updated form)
-    │       ├── EventsPage.jsx (with modal)
-    │       └── ... (other pages)
+    │   ├── pages/
+    │   │   ├── HomePage.jsx (Quick Enquiry form)
+    │   │   ├── SummerTrainingPage.jsx (NEW)
+    │   │   ├── AdminPage.jsx (login + new tabs)
+    │   │   └── ...
+    │   └── components/
+    │       └── Footer.jsx (updated social links)
 ```
-
----
-
-## Known Behaviors
-- Homepage displays sample/fallback data when database collections are empty
-- Blogs and FAQs show sample data until admin adds real content
-- Admin page has no authentication (intentional for MVP)
-- Chatbot requires Emergent LLM Key with sufficient balance
-- Free Counselling page is standalone (no header/footer)
