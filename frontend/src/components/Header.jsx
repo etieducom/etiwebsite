@@ -11,45 +11,62 @@ import {
   Calendar,
   Users,
   Briefcase,
-  ChevronRight
+  ChevronRight,
+  Award,
+  Clock,
+  Building2,
+  GraduationCap
 } from "lucide-react";
 
 const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
 const LOGO_BLUE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/zm56gptp_eti%20.png";
 
-// Fallback to text logo if image doesn't load
+// Text logo fallback
 const TextLogo = () => (
   <div className="flex items-center">
-    <span className="text-2xl font-bold text-[#1545ea] font-['Manrope']">ETI</span>
-    <span className="text-2xl font-bold text-[#1a1a1a] font-['Manrope'] ml-1">EDUCOM</span>
+    <span className="text-2xl font-bold text-[#1545ea] font-['Poppins']">ETI</span>
+    <span className="text-2xl font-bold text-[#1a1a1a] font-['Poppins'] ml-1">EDUCOM</span>
     <span className="text-[#1545ea] text-sm ml-0.5">®</span>
   </div>
 );
 
-const careerTracks = [
+// Programs categorized
+const programCategories = [
   {
-    id: "computer-foundation",
-    title: "Computer Career Foundation",
-    description: "Digital literacy & essential computer skills",
-    icon: <Monitor className="w-6 h-6" />
+    id: "career_tracks",
+    title: "Career Tracks",
+    programs: [
+      { id: "computer-foundation", title: "Computer Career Foundation", icon: <Monitor className="w-5 h-5" />, duration: "3-6 months" },
+      { id: "digital-design", title: "Digital Design & Marketing", icon: <Palette className="w-5 h-5" />, duration: "6-12 months" },
+      { id: "it-networking", title: "IT Support & Cybersecurity", icon: <Network className="w-5 h-5" />, duration: "6-12 months" },
+      { id: "software-development", title: "Software Development", icon: <Code className="w-5 h-5" />, duration: "9-18 months" }
+    ]
   },
   {
-    id: "digital-design",
-    title: "Digital Design & Marketing",
-    description: "Creative design & digital marketing expertise",
-    icon: <Palette className="w-6 h-6" />
+    id: "short_term",
+    title: "Short Term Programs",
+    programs: [
+      { id: "ms-office", title: "MS Office Certification", icon: <Award className="w-5 h-5" />, duration: "1-2 months" },
+      { id: "graphic-design", title: "Graphic Design Basics", icon: <Palette className="w-5 h-5" />, duration: "2-3 months" },
+      { id: "web-basics", title: "Web Development Basics", icon: <Code className="w-5 h-5" />, duration: "2-3 months" }
+    ]
   },
   {
-    id: "it-networking",
-    title: "IT Support, Networking & Cybersecurity",
-    description: "IT infrastructure & security solutions",
-    icon: <Network className="w-6 h-6" />
+    id: "skill_development",
+    title: "Skill Development",
+    programs: [
+      { id: "python-programming", title: "Python Programming", icon: <Code className="w-5 h-5" />, duration: "2-3 months" },
+      { id: "data-entry", title: "Data Entry & Management", icon: <Monitor className="w-5 h-5" />, duration: "1-2 months" },
+      { id: "social-media", title: "Social Media Marketing", icon: <Palette className="w-5 h-5" />, duration: "1-2 months" }
+    ]
   },
   {
-    id: "software-development",
-    title: "Software Development",
-    description: "Programming & application development",
-    icon: <Code className="w-6 h-6" />
+    id: "corporate_training",
+    title: "Corporate Training",
+    programs: [
+      { id: "corporate-it", title: "Corporate IT Training", icon: <Building2 className="w-5 h-5" />, duration: "Custom" },
+      { id: "team-productivity", title: "Team Productivity Tools", icon: <Users className="w-5 h-5" />, duration: "Custom" }
+    ]
   }
 ];
 
@@ -57,6 +74,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [expandedCategory, setExpandedCategory] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -98,41 +116,51 @@ const Header = () => {
               <Link to="/about" className="nav-link">About</Link>
               <Link to="/founder" className="nav-link">Founder's Desk</Link>
               
-              {/* Career Tracks Mega Menu */}
+              {/* Programs Mega Menu */}
               <div 
                 className="nav-item relative"
-                onMouseEnter={() => setActiveDropdown('tracks')}
+                onMouseEnter={() => setActiveDropdown('programs')}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <button className="nav-link flex items-center gap-1" data-testid="career-tracks-menu">
-                  Career Tracks
+                <button className="nav-link flex items-center gap-1" data-testid="programs-menu">
+                  Programs
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                <div className={`mega-menu ${activeDropdown === 'tracks' ? 'opacity-100 visible translate-y-0' : ''}`}>
-                  <div className="grid grid-cols-2 gap-2">
-                    {careerTracks.map((track) => (
-                      <Link 
-                        key={track.id}
-                        to={`/career-tracks/${track.id}`}
-                        className="mega-menu-item"
-                        data-testid={`mega-menu-${track.id}`}
-                      >
-                        <div className="w-10 h-10 bg-[#f1eded] rounded-lg flex items-center justify-center text-[#1545ea]">
-                          {track.icon}
+                <div className={`mega-menu ${activeDropdown === 'programs' ? 'opacity-100 visible' : ''}`}>
+                  <div className="grid grid-cols-2 gap-6">
+                    {programCategories.map((category) => (
+                      <div key={category.id} className="mega-menu-category">
+                        <h4 className="mega-menu-category-title">{category.title}</h4>
+                        <div className="space-y-1">
+                          {category.programs.map((program) => (
+                            <Link 
+                              key={program.id}
+                              to={`/programs/${program.id}`}
+                              className="mega-menu-item"
+                              data-testid={`mega-menu-${program.id}`}
+                            >
+                              <div className="w-8 h-8 bg-[#ebebeb] rounded-lg flex items-center justify-center text-[#1545ea]">
+                                {program.icon}
+                              </div>
+                              <div className="flex-1">
+                                <p className="font-medium text-[#1a1a1a] text-sm">{program.title}</p>
+                                <p className="text-xs text-[#717171] flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {program.duration}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
                         </div>
-                        <div>
-                          <p className="font-semibold text-[#1a1a1a] text-sm">{track.title}</p>
-                          <p className="text-xs text-[#717171]">{track.description}</p>
-                        </div>
-                      </Link>
+                      </div>
                     ))}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-[#f1eded]">
+                  <div className="mt-4 pt-4 border-t border-[#ebebeb]">
                     <Link 
-                      to="/career-tracks" 
+                      to="/programs" 
                       className="flex items-center gap-2 text-[#1545ea] font-semibold text-sm hover:underline"
                     >
-                      View All Career Tracks
+                      View All Programs
                       <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -214,42 +242,57 @@ const Header = () => {
           />
           <div className="mobile-menu-panel" data-testid="mobile-menu">
             <div className="flex justify-between items-center mb-6">
-              <img src={LOGO_BLUE} alt="ETI Educom" className="h-10" />
+              <TextLogo />
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X className="w-6 h-6" />
               </button>
             </div>
             
             <nav className="space-y-1">
-              <Link to="/" className="block py-3 font-medium border-b border-[#f1eded]">Home</Link>
-              <Link to="/about" className="block py-3 font-medium border-b border-[#f1eded]">About</Link>
-              <Link to="/founder" className="block py-3 font-medium border-b border-[#f1eded]">Founder's Desk</Link>
+              <Link to="/" className="block py-3 font-medium border-b border-[#ebebeb]">Home</Link>
+              <Link to="/about" className="block py-3 font-medium border-b border-[#ebebeb]">About</Link>
+              <Link to="/founder" className="block py-3 font-medium border-b border-[#ebebeb]">Founder's Desk</Link>
               
-              <div className="py-3 border-b border-[#f1eded]">
-                <p className="font-semibold text-[#1545ea] mb-2">Career Tracks</p>
-                <div className="space-y-2 pl-4">
-                  {careerTracks.map((track) => (
-                    <Link 
-                      key={track.id}
-                      to={`/career-tracks/${track.id}`}
-                      className="block text-sm text-[#4a4a4a] py-1"
+              {/* Programs in Mobile */}
+              <div className="py-3 border-b border-[#ebebeb]">
+                <p className="font-semibold text-[#1545ea] mb-3">Programs</p>
+                {programCategories.map((category) => (
+                  <div key={category.id} className="mb-3">
+                    <button 
+                      className="flex items-center justify-between w-full text-sm font-medium text-[#4a4a4a] py-1"
+                      onClick={() => setExpandedCategory(expandedCategory === category.id ? null : category.id)}
                     >
-                      {track.title}
-                    </Link>
-                  ))}
-                </div>
+                      {category.title}
+                      <ChevronDown className={`w-4 h-4 transition-transform ${expandedCategory === category.id ? 'rotate-180' : ''}`} />
+                    </button>
+                    {expandedCategory === category.id && (
+                      <div className="pl-4 mt-2 space-y-2">
+                        {category.programs.map((program) => (
+                          <Link 
+                            key={program.id}
+                            to={`/programs/${program.id}`}
+                            className="block text-sm text-[#717171] py-1"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {program.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
               
-              <Link to="/events" className="block py-3 font-medium border-b border-[#f1eded]">Events</Link>
-              <Link to="/hire-from-us" className="block py-3 font-medium border-b border-[#f1eded]">Hire From Us</Link>
-              <Link to="/join-team" className="block py-3 font-medium border-b border-[#f1eded]">Join ETI Team</Link>
-              <Link to="/franchise" className="block py-3 font-medium border-b border-[#f1eded]">Franchise</Link>
-              <Link to="/verify-certificate" className="block py-3 font-medium border-b border-[#f1eded]">Verify Certificate</Link>
-              <Link to="/contact" className="block py-3 font-medium border-b border-[#f1eded]">Contact</Link>
+              <Link to="/events" className="block py-3 font-medium border-b border-[#ebebeb]">Events</Link>
+              <Link to="/hire-from-us" className="block py-3 font-medium border-b border-[#ebebeb]">Hire From Us</Link>
+              <Link to="/join-team" className="block py-3 font-medium border-b border-[#ebebeb]">Join ETI Team</Link>
+              <Link to="/franchise" className="block py-3 font-medium border-b border-[#ebebeb]">Franchise</Link>
+              <Link to="/verify-certificate" className="block py-3 font-medium border-b border-[#ebebeb]">Verify Certificate</Link>
+              <Link to="/contact" className="block py-3 font-medium border-b border-[#ebebeb]">Contact</Link>
             </nav>
 
             <div className="mt-6">
-              <Link to="/contact">
+              <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <button className="btn-primary w-full justify-center">
                   Enquire Now
                 </button>
