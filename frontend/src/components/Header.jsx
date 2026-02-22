@@ -15,20 +15,12 @@ import {
   Award,
   Clock,
   Building2,
-  GraduationCap
+  GraduationCap,
+  FileText,
+  HelpCircle
 } from "lucide-react";
 
-const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
 const LOGO_BLUE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/zm56gptp_eti%20.png";
-
-// Text logo fallback
-const TextLogo = () => (
-  <div className="flex items-center">
-    <span className="text-2xl font-bold text-[#1545ea] font-['Poppins']">ETI</span>
-    <span className="text-2xl font-bold text-[#1a1a1a] font-['Poppins'] ml-1">EDUCOM</span>
-    <span className="text-[#1545ea] text-sm ml-0.5">®</span>
-  </div>
-);
 
 // Programs categorized
 const programCategories = [
