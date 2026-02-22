@@ -1239,6 +1239,68 @@ const AdminPage = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Technical SEO Modal */}
+      <Dialog open={showTechSeoModal} onOpenChange={setShowTechSeoModal}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Technical SEO Settings</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleTechSeoSubmit} className="space-y-4">
+            <div>
+              <label className="form-label">Google Analytics ID</label>
+              <Input 
+                placeholder="G-XXXXXXXXXX or UA-XXXXXXXX-X" 
+                value={techSeoForm.google_analytics_id} 
+                onChange={(e) => setTechSeoForm({...techSeoForm, google_analytics_id: e.target.value})} 
+                className="form-input" 
+              />
+              <p className="text-xs text-[#717171] mt-1">Enter your Google Analytics measurement ID</p>
+            </div>
+            <div>
+              <label className="form-label">Google Tag Manager ID</label>
+              <Input 
+                placeholder="GTM-XXXXXXX" 
+                value={techSeoForm.google_tag_manager_id} 
+                onChange={(e) => setTechSeoForm({...techSeoForm, google_tag_manager_id: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div>
+              <label className="form-label">Facebook Pixel ID</label>
+              <Input 
+                placeholder="XXXXXXXXXXXXXXXXX" 
+                value={techSeoForm.facebook_pixel_id} 
+                onChange={(e) => setTechSeoForm({...techSeoForm, facebook_pixel_id: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div>
+              <label className="form-label">Sitemap URL</label>
+              <Input 
+                placeholder="https://yoursite.com/sitemap.xml" 
+                value={techSeoForm.sitemap_url} 
+                onChange={(e) => setTechSeoForm({...techSeoForm, sitemap_url: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div>
+              <label className="form-label">Custom Head Scripts</label>
+              <Textarea 
+                placeholder="Paste custom scripts to be added in <head> (e.g., schema markup, verification codes)" 
+                value={techSeoForm.custom_head_scripts} 
+                onChange={(e) => setTechSeoForm({...techSeoForm, custom_head_scripts: e.target.value})} 
+                className="form-input font-mono text-sm" 
+                rows={5}
+              />
+              <p className="text-xs text-[#717171] mt-1">Include the full script tags</p>
+            </div>
+            <Button type="submit" className="btn-primary w-full" disabled={submitting}>
+              {submitting ? "Saving..." : "Save Technical SEO Settings"}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
