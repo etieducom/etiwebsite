@@ -170,11 +170,17 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[#717171] text-sm">
-            © {new Date().getFullYear()} ETI Educom®. All rights reserved.
+            © {new Date().getFullYear()} ETI Educom. All rights reserved.
           </p>
-          <p className="text-[#717171] text-sm">
-            A unit of <strong className="text-[#b0b0b0]">ETI Learning Systems Private Limited</strong>
-          </p>
+          <div className="flex items-center gap-4">
+            <Link to="/privacy-policy" className="text-[#717171] text-sm hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-[#717171]">|</span>
+            <p className="text-[#717171] text-sm">
+              A unit of <strong className="text-[#b0b0b0]">ETI Learning Systems Private Limited</strong>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
