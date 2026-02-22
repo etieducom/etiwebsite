@@ -9,9 +9,7 @@ import {
   CheckCircle,
   ChevronRight,
   Shield,
-  BookOpen,
-  Globe,
-  Clock
+  Globe
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
@@ -48,13 +46,6 @@ const AboutPage = () => {
     }
   ];
 
-  const milestones = [
-    { year: "2017", event: "ETI Educom® Founded" },
-    { year: "2018", event: "Certiport CATC Authorization" },
-    { year: "2020", event: "Expanded Career Track Programs" },
-    { year: "2023", event: "2000+ Students Milestone" }
-  ];
-
   return (
     <div className="pt-[72px]" data-testid="about-page">
       {/* Page Header */}
@@ -65,8 +56,8 @@ const AboutPage = () => {
               <Building2 className="w-4 h-4 mr-1" />
               About Us
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-['Manrope']">
-              About ETI Educom®
+            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+              About ETI Educom
             </h1>
             <p className="text-lg text-[#4a4a4a] max-w-2xl mx-auto">
               India's trusted Computer Career School building structured career pathways since 2017
@@ -80,11 +71,11 @@ const AboutPage = () => {
         <div className="container-main">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <motion.div {...fadeInUp}>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-6 font-['Manrope']">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-6 font-['Poppins']">
                 The Computer Career School
               </h2>
               <p className="text-[#4a4a4a] mb-6 leading-relaxed">
-                ETI Educom®, a unit of ETI Learning Systems Private Limited, was established 
+                ETI Educom, a unit of ETI Learning Systems Private Limited, was established 
                 in 2017 with a vision to provide structured, career-oriented computer education 
                 across India.
               </p>
@@ -100,7 +91,7 @@ const AboutPage = () => {
               
               <div className="flex flex-wrap gap-4">
                 <div className="stat-box flex-1 min-w-[140px]">
-                  <p className="text-3xl font-bold text-[#1545ea]">2000+</p>
+                  <p className="text-3xl font-bold text-[#1545ea]">5000+</p>
                   <p className="text-sm text-[#717171]">Learners Trained</p>
                 </div>
                 <div className="stat-box flex-1 min-w-[140px]">
@@ -135,7 +126,7 @@ const AboutPage = () => {
         <div className="container-main">
           <motion.div {...fadeInUp} className="text-center mb-16">
             <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">Our Values</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] font-['Manrope']">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] font-['Poppins']">
               What Drives Us
             </h2>
           </motion.div>
@@ -162,56 +153,18 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Milestones */}
-      <section className="py-20 bg-white">
-        <div className="container-main">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
-              <Clock className="w-4 h-4 mr-1" />
-              Our Journey
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] font-['Manrope']">
-              Key Milestones
-            </h2>
-          </motion.div>
-
-          <div className="max-w-3xl mx-auto">
-            {milestones.map((milestone, index) => (
-              <motion.div
-                key={milestone.year}
-                {...fadeInUp}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex gap-6 mb-8 last:mb-0"
-              >
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-[#1545ea] rounded-full flex items-center justify-center text-white font-bold">
-                    {milestone.year}
-                  </div>
-                  {index < milestones.length - 1 && (
-                    <div className="w-0.5 h-full bg-[#f1eded] mt-2"></div>
-                  )}
-                </div>
-                <div className="flex-1 pt-4">
-                  <p className="text-lg font-semibold text-[#1a1a1a]">{milestone.event}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 bg-[#1545ea]">
         <div className="container-main text-center">
           <motion.div {...fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-['Manrope']">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-['Poppins']">
               Ready to Start Your Journey?
             </h2>
             <p className="text-blue-100 mb-8 max-w-xl mx-auto">
               Explore our career tracks and take the first step towards a successful technology career.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/career-tracks">
+              <Link to="/programs">
                 <Button className="bg-white text-[#1545ea] hover:bg-[#f1eded] font-semibold px-8 py-3">
                   Explore Career Tracks
                   <ChevronRight className="w-5 h-5" />
