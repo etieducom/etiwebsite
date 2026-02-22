@@ -13,31 +13,24 @@ import {
 
 const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
 
-// Text logo fallback
-const TextLogoWhite = () => (
-  <div className="flex items-center">
-    <span className="text-2xl font-bold text-white font-['Manrope']">ETI</span>
-    <span className="text-2xl font-bold text-white/80 font-['Manrope'] ml-1">EDUCOM</span>
-    <span className="text-white text-sm ml-0.5">®</span>
-  </div>
-);
-
 const Footer = () => {
   const quickLinks = [
     { label: "About Us", href: "/about" },
-    { label: "Career Tracks", href: "/career-tracks" },
+    { label: "Programs", href: "/programs" },
     { label: "Events", href: "/events" },
     { label: "Contact Us", href: "/contact" }
   ];
 
-  const careerTracks = [
-    { label: "Computer Career Foundation", href: "/career-tracks/computer-foundation" },
-    { label: "Digital Design & Marketing", href: "/career-tracks/digital-design" },
-    { label: "IT Support & Networking", href: "/career-tracks/it-networking" },
-    { label: "Software Development", href: "/career-tracks/software-development" }
+  const programs = [
+    { label: "Computer Career Foundation", href: "/programs/computer-foundation" },
+    { label: "Digital Design & Marketing", href: "/programs/digital-design" },
+    { label: "IT Support & Networking", href: "/programs/it-networking" },
+    { label: "Software Development", href: "/programs/software-development" }
   ];
 
   const resources = [
+    { label: "Blogs", href: "/blogs" },
+    { label: "FAQ", href: "/faq" },
     { label: "Hire From Us", href: "/hire-from-us" },
     { label: "Join ETI Team", href: "/join-team" },
     { label: "Franchise", href: "/franchise" },
