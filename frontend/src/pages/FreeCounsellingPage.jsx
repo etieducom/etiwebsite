@@ -10,7 +10,8 @@ import {
   ArrowRight,
   Zap,
   Target,
-  TrendingUp
+  TrendingUp,
+  MessageCircle
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -24,6 +25,8 @@ import {
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+const WHATSAPP_NUMBER = "919646727676";
 
 const careerTracks = [
   "Computer Career Foundation",
