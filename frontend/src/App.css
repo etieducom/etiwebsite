@@ -1,149 +1,114 @@
-/* ETI Educom - Institutional Website Styles */
+/* ETI Educom - Professional Institutional Styles */
 
-/* Header Styles */
-.header-sticky {
+/* Header/Navbar */
+.header-main {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+  border-bottom: 1px solid #f1eded;
   transition: all 0.3s ease;
 }
 
-.header-sticky.scrolled {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.header-main.scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Navigation */
 .nav-link {
-  position: relative;
-  color: #475569;
+  color: #1a1a1a;
   font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
   transition: color 0.2s ease;
+  position: relative;
 }
 
 .nav-link:hover {
-  color: #1E3A8A;
+  color: #1545ea;
 }
 
-.nav-link::after {
-  content: '';
+/* Mega Menu */
+.mega-menu {
   position: absolute;
-  bottom: -4px;
+  top: 100%;
   left: 0;
-  width: 0;
-  height: 2px;
-  background: #1E3A8A;
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Hero Section */
-.hero-gradient {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-}
-
-/* Card Styles */
-.career-card {
   background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.career-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: #1E3A8A;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.career-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(30, 58, 138, 0.15);
-}
-
-.career-card:hover::before {
-  transform: scaleX(1);
-}
-
-/* Testimonial Card */
-.testimonial-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1px solid #e2e8f0;
-  position: relative;
-}
-
-.testimonial-card::before {
-  content: '"';
-  position: absolute;
-  top: 1rem;
-  left: 1.5rem;
-  font-size: 4rem;
-  font-family: 'Manrope', sans-serif;
-  color: #1E3A8A;
-  opacity: 0.15;
-  line-height: 1;
-}
-
-/* Stats Section */
-.stat-box {
-  background: linear-gradient(135deg, #1E3A8A 0%, #1e40af 100%);
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  color: white;
-  transition: transform 0.3s ease;
-}
-
-.stat-box:hover {
-  transform: scale(1.02);
-}
-
-/* Partner Logo Styles */
-.partner-logo {
-  filter: grayscale(100%);
-  opacity: 0.6;
+  border: 1px solid #f1eded;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  min-width: 500px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
   transition: all 0.3s ease;
 }
 
-.partner-logo:hover {
-  filter: grayscale(0%);
+.nav-item:hover .mega-menu {
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
-/* Section Backgrounds */
-.section-alt {
-  background: #f8fafc;
+.mega-menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
 
-.section-dark {
-  background: #0F172A;
-  color: white;
+.mega-menu-item:hover {
+  background-color: #f1eded;
 }
 
-/* Button Styles */
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #f1eded;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1eded;
+  color: #1545ea;
+}
+
+/* Buttons */
 .btn-primary {
-  background: #1E3A8A;
+  background: #1545ea;
   color: white;
   font-weight: 600;
-  padding: 0.875rem 2rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -154,84 +119,143 @@
 }
 
 .btn-primary:hover {
-  background: #172554;
+  background: #0d36c4;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+  box-shadow: 0 4px 12px rgba(21, 69, 234, 0.3);
 }
 
 .btn-secondary {
   background: white;
-  color: #1E3A8A;
+  color: #1545ea;
   font-weight: 600;
-  padding: 0.875rem 2rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  border: 2px solid #1E3A8A;
+  border: 2px solid #1545ea;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: #f8fafc;
+  background: #f1eded;
 }
 
-.btn-cta {
-  background: #F97316;
+.btn-outline-white {
+  background: transparent;
   color: white;
-  font-weight: 700;
-  padding: 1rem 2rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  border: none;
+  border: 2px solid white;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
 }
 
-.btn-cta:hover {
-  background: #EA580C;
+.btn-outline-white:hover {
+  background: white;
+  color: #1545ea;
+}
+
+/* Cards */
+.card-default {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f1eded;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card-default:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.card-grey {
+  background: #f1eded;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card-grey:hover {
+  background: #e5e0e0;
+}
+
+.card-blue {
+  background: #1545ea;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+}
+
+/* Section Backgrounds */
+.section-white {
+  background: white;
+}
+
+.section-grey {
+  background: #f1eded;
+}
+
+.section-blue {
+  background: #1545ea;
+  color: white;
+}
+
+/* Hero Section */
+.hero-home {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f1eded 100%);
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Footer */
+.footer-main {
+  background: #1a1a1a;
+  color: white;
+  padding: 4rem 0 2rem;
+}
+
+.footer-link {
+  color: #b0b0b0;
+  transition: color 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.footer-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: white;
 }
 
 /* Form Styles */
 .form-input {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e5e0e0;
   border-radius: 8px;
-  background: #f8fafc;
-  font-size: 1rem;
+  background: white;
+  font-size: 0.9375rem;
   transition: all 0.2s ease;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #1E3A8A;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+  border-color: #1545ea;
+  box-shadow: 0 0 0 3px rgba(21, 69, 234, 0.1);
 }
 
 .form-label {
   display: block;
   font-weight: 600;
-  color: #1e293b;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
-}
-
-/* Footer */
-.footer {
-  background: #0F172A;
-  color: white;
-  padding: 4rem 0 2rem;
-}
-
-.footer-link {
-  color: #94a3b8;
-  transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-  color: white;
 }
 
 /* Container */
@@ -253,18 +277,86 @@
   }
 }
 
+/* Page Header */
+.page-header {
+  background: #f1eded;
+  padding: 6rem 0 3rem;
+  margin-top: 4.5rem;
+}
+
+/* Stats Box */
+.stat-box {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid #f1eded;
+}
+
+.stat-box-blue {
+  background: #1545ea;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+/* Career Track Card */
+.track-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #f1eded;
+  transition: all 0.3s ease;
+}
+
+.track-card:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Event Card */
+.event-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f1eded;
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
 /* Mobile Menu */
-.mobile-menu {
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+}
+
+.mobile-menu-panel {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  width: 300px;
+  max-width: 85%;
   background: white;
-  z-index: 100;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  z-index: 70;
+  padding: 1.5rem;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 /* Animations */
@@ -279,23 +371,33 @@
   }
 }
 
-.fade-in-up {
+.animate-fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Grain overlay for sections */
-.grain-overlay {
-  position: relative;
+/* Partner logos marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.grain-overlay::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Testimonial Quote */
+.quote-mark {
+  font-size: 4rem;
+  font-family: 'Georgia', serif;
+  color: #1545ea;
+  opacity: 0.2;
+  line-height: 1;
 }
