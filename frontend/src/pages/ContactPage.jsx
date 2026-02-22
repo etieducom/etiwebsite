@@ -251,99 +251,55 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* Pathankot Branch Section */}
-      <section className="py-16 section-grey">
+      {/* Pathankot Branch Section - Minimal */}
+      <section className="py-12 section-grey">
         <div className="container-main">
-          <motion.div {...fadeInUp} className="text-center mb-12">
-            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
-              <Building2 className="w-4 h-4 mr-1" />
-              Our Branch
-            </Badge>
-            <h2 className="text-3xl font-bold text-[#1a1a1a] font-['Poppins']">
-              Pathankot Branch
-            </h2>
-          </motion.div>
-
-          <motion.div {...fadeInUp}>
-            <Card className="card-default max-w-3xl mx-auto">
-              <CardContent className="p-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="font-bold text-xl text-[#1a1a1a] mb-4">{branchInfo.name}</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-[#1545ea] mt-0.5 flex-shrink-0" />
-                        <p className="text-[#4a4a4a]">{branchInfo.address}</p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Phone className="w-5 h-5 text-[#1545ea] flex-shrink-0" />
-                        <a href={`tel:${branchInfo.phone}`} className="text-[#1545ea] hover:underline">
-                          {branchInfo.phone}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 text-[#1545ea] flex-shrink-0" />
-                        <a href={`mailto:${branchInfo.email}`} className="text-[#1545ea] hover:underline">
-                          {branchInfo.email}
-                        </a>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Clock className="w-5 h-5 text-[#1545ea] mt-0.5 flex-shrink-0" />
-                        <p className="text-[#4a4a4a]">{branchInfo.timings}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center">
-                    <a 
-                      href="/branches/pathankot"
-                      className="inline-flex items-center gap-2 text-[#1545ea] font-semibold hover:underline"
-                    >
-                      View Branch Details
-                      <ChevronRight className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 max-w-4xl mx-auto">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#1545ea]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Building2 className="w-6 h-6 text-[#1545ea]" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-[#1a1a1a]">{branchInfo.name}</h3>
+                <p className="text-sm text-[#717171]">{branchInfo.address}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <a href={`tel:${branchInfo.phone}`} className="flex items-center gap-2 text-[#1545ea] hover:underline">
+                <Phone className="w-4 h-4" /> {branchInfo.phone}
+              </a>
+              <a href={`mailto:${branchInfo.email}`} className="flex items-center gap-2 text-[#1545ea] hover:underline">
+                <Mail className="w-4 h-4" /> {branchInfo.email}
+              </a>
+              <a href="/branches/pathankot" className="text-[#717171] hover:text-[#1545ea] flex items-center gap-1">
+                Details <ChevronRight className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Partnership Section */}
-      <section className="py-16 bg-white">
+      {/* Partnership Section - Minimal */}
+      <section className="py-12 bg-white">
         <div className="container-main">
-          <motion.div {...fadeInUp} className="text-center mb-12">
-            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
-              <Handshake className="w-4 h-4 mr-1" />
-              Partnerships
-            </Badge>
-            <h2 className="text-3xl font-bold text-[#1a1a1a] font-['Poppins']">
-              School & College Partnerships
-            </h2>
-            <p className="text-[#4a4a4a] mt-4 max-w-2xl mx-auto">
-              Partner with ETI Educom to bring industry-relevant computer education to your students. 
-              We offer customized training programs for schools and colleges.
-            </p>
-          </motion.div>
-
-          <motion.div {...fadeInUp}>
-            <Card className="card-default max-w-2xl mx-auto bg-gradient-to-br from-[#1545ea]/5 to-white">
-              <CardContent className="p-8 text-center">
-                <Handshake className="w-16 h-16 text-[#1545ea] mx-auto mb-4" />
-                <h3 className="font-bold text-xl text-[#1a1a1a] mb-2">Interested in Partnering?</h3>
-                <p className="text-[#4a4a4a] mb-6">
-                  Reach out to us at our dedicated partnerships email for collaboration opportunities.
-                </p>
-                <a 
-                  href="mailto:partnerships@etieducom.com"
-                  className="inline-flex items-center gap-2 bg-[#1545ea] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0d36c4] transition-colors"
-                >
-                  <Mail className="w-5 h-5" />
-                  partnerships@etieducom.com
-                </a>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 max-w-4xl mx-auto">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-[#1545ea]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Handshake className="w-6 h-6 text-[#1545ea]" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-[#1a1a1a]">School & College Partnerships</h3>
+                <p className="text-sm text-[#717171]">Partner with us to bring computer education to your students</p>
+              </div>
+            </div>
+            <a 
+              href="mailto:partnerships@etieducom.com"
+              className="flex items-center gap-2 bg-[#1545ea] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0d36c4] transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+              partnerships@etieducom.com
+            </a>
+          </div>
         </div>
       </section>
     </div>
