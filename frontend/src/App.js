@@ -21,12 +21,12 @@ import FAQPage from "./pages/FAQPage";
 import HireFromUsPage from "./pages/HireFromUsPage";
 import JoinTeamPage from "./pages/JoinTeamPage";
 import FranchisePage from "./pages/FranchisePage";
-import VerifyCertificatePage from "./pages/VerifyCertificatePage";
 import ContactPage from "./pages/ContactPage";
 import FreeCounsellingPage from "./pages/FreeCounsellingPage";
 import SummerTrainingPage from "./pages/SummerTrainingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import AdminPage from "./pages/AdminPage";
+import BranchPage from "./pages/BranchPage";
 
 function App() {
   return (
@@ -59,7 +59,7 @@ function App() {
                   <Route path="/hire-from-us" element={<HireFromUsPage />} />
                   <Route path="/join-team" element={<JoinTeamPage />} />
                   <Route path="/franchise" element={<FranchisePage />} />
-                  <Route path="/verify-certificate" element={<VerifyCertificatePage />} />
+                  <Route path="/branches/:branchId" element={<BranchPage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                   <Route path="/admin" element={<AdminPage />} />
