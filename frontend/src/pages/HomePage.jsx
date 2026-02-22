@@ -239,6 +239,32 @@ const HomePage = () => {
   
   const displayBlogs = blogs.length > 0 ? blogs.slice(0, 3) : sampleBlogs;
 
+  // Quick Enquiry Form State
+  const [quickForm, setQuickForm] = useState({
+    name: "",
+    phone: "",
+    interest: ""
+  });
+  const [quickSubmitting, setQuickSubmitting] = useState(false);
+
+  const handleQuickSubmit = async (e) => {
+    e.preventDefault();
+    if (!quickForm.name || !quickForm.phone || !quickForm.interest) {
+      toast.error("Please fill all fields");
+      return;
+    }
+    setQuickSubmitting(true);
+    try {
+      await axios.post(`${API}/quick-enquiry`, { ...quickForm, source: "homepage" });
+      toast.success("Enquiry submitted! We'll contact you soon.");
+      setQuickForm({ name: "", phone: "", interest: "" });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setQuickSubmitting(false);
+    }
+  };
+
   return (
     <div className="pt-[72px]" data-testid="home-page">
       {/* Hero Section */}
