@@ -534,6 +534,77 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Blogs Section */}
+      <section className="py-20 md:py-28 bg-white" data-testid="blogs-section">
+        <div className="container-main">
+          <motion.div {...fadeInUp} className="text-center mb-16">
+            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
+              <FileText className="w-4 h-4 mr-1" />
+              Knowledge Hub
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+              Latest from Our Blog
+            </h2>
+            <p className="text-[#4a4a4a] max-w-2xl mx-auto">
+              Stay updated with career tips, industry insights, and educational resources
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {displayBlogs.map((blog, index) => (
+              <motion.div
+                key={blog.id}
+                {...fadeInUp}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Link to={`/blogs/${blog.slug}`}>
+                  <Card className="blog-card h-full overflow-hidden group">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={blog.featured_image || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400"}
+                        alt={blog.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-white/90 text-[#1545ea] text-xs">
+                          {blog.category}
+                        </Badge>
+                      </div>
+                    </div>
+                    <CardContent className="p-5">
+                      <div className="flex items-center gap-3 text-sm text-[#717171] mb-3">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {blog.read_time} min read
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 line-clamp-2 group-hover:text-[#1545ea] transition-colors font-['Poppins']">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-[#4a4a4a] line-clamp-2 mb-4">
+                        {blog.excerpt}
+                      </p>
+                      <span className="text-[#1545ea] font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Read More <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div {...fadeInUp} className="text-center mt-12">
+            <Link to="/blogs">
+              <Button className="btn-secondary">
+                View All Articles
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Why ETI Section */}
       <section className="py-20 md:py-28 section-grey" data-testid="why-section">
         <div className="container-main">
