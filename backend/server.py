@@ -1433,6 +1433,100 @@ async def get_seo_settings(page_slug: str):
     )
 
 
+# ============ Admin Auth Routes ============
+
+@api_router.post("/admin/login", response_model=AdminLoginResponse)
+async def admin_login(input: AdminLogin):
+    if input.password == ADMIN_PASSWORD:
+        # Simple token - in production use JWT
+        import hashlib
+        token = hashlib.sha256(f"{ADMIN_PASSWORD}{datetime.now().isoformat()}".encode()).hexdigest()[:32]
+        return AdminLoginResponse(success=True, message="Login successful", token=token)
+    return AdminLoginResponse(success=False, message="Invalid password", token=None)
+
+
+@api_router.post("/admin/verify")
+async def verify_admin(token: str = ""):
+    # Simple verification - just check if token exists
+    if token and len(token) == 32:
+        return {"valid": True}
+    return {"valid": False}
+
+
+# ============ Summer Training Lead Routes ============
+
+@api_router.post("/summer-training-leads", response_model=SummerTrainingLeadResponse)
+async def create_summer_training_lead(input: SummerTrainingLeadCreate):
+    try:
+        lead_dict = input.model_dump()
+        lead_obj = SummerTrainingLead(**lead_dict)
+        doc = lead_obj.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        await db.summer_training_leads.insert_one(doc)
+        return SummerTrainingLeadResponse(**{**doc, 'created_at': doc['created_at']})
+    except Exception as e:
+        logging.error(f"Error creating summer training lead: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit lead")
+
+
+@api_router.get("/summer-training-leads", response_model=List[SummerTrainingLeadResponse])
+async def get_summer_training_leads():
+    leads = await db.summer_training_leads.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    return [
+        SummerTrainingLeadResponse(
+            id=lead['id'], name=lead['name'], email=lead['email'], phone=lead['phone'],
+            program_interest=lead['program_interest'], duration=lead.get('duration', '6 weeks'),
+            status=lead.get('status', 'new'),
+            created_at=lead['created_at'] if isinstance(lead['created_at'], str) else lead['created_at'].isoformat()
+        ) for lead in leads
+    ]
+
+
+@api_router.delete("/summer-training-leads/{lead_id}")
+async def delete_summer_training_lead(lead_id: str):
+    result = await db.summer_training_leads.delete_one({"id": lead_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Lead not found")
+    return {"message": "Lead deleted successfully"}
+
+
+# ============ Quick Enquiry Routes ============
+
+@api_router.post("/quick-enquiry", response_model=QuickEnquiryResponse)
+async def create_quick_enquiry(input: QuickEnquiryCreate):
+    try:
+        enquiry_dict = input.model_dump()
+        enquiry_obj = QuickEnquiry(**enquiry_dict)
+        doc = enquiry_obj.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        await db.quick_enquiries.insert_one(doc)
+        return QuickEnquiryResponse(**{**doc, 'created_at': doc['created_at']})
+    except Exception as e:
+        logging.error(f"Error creating quick enquiry: {e}")
+        raise HTTPException(status_code=500, detail="Failed to submit enquiry")
+
+
+@api_router.get("/quick-enquiry", response_model=List[QuickEnquiryResponse])
+async def get_quick_enquiries():
+    enquiries = await db.quick_enquiries.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    return [
+        QuickEnquiryResponse(
+            id=e['id'], name=e['name'], phone=e['phone'], email=e.get('email'),
+            interest=e['interest'], source=e.get('source', 'homepage'),
+            status=e.get('status', 'new'),
+            created_at=e['created_at'] if isinstance(e['created_at'], str) else e['created_at'].isoformat()
+        ) for e in enquiries
+    ]
+
+
+@api_router.delete("/quick-enquiry/{enquiry_id}")
+async def delete_quick_enquiry(enquiry_id: str):
+    result = await db.quick_enquiries.delete_one({"id": enquiry_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Enquiry not found")
+    return {"message": "Enquiry deleted successfully"}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
