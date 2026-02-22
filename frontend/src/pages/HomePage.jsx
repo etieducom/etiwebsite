@@ -80,7 +80,7 @@ const careerTracks = [
 ];
 
 const stats = [
-  { value: "2000+", label: "Students Trained", icon: <Users className="w-6 h-6" /> },
+  { value: "5000+", label: "Students Trained", icon: <Users className="w-6 h-6" /> },
   { value: "2017", label: "Established", icon: <Building2 className="w-6 h-6" /> },
   { value: "4", label: "Career Tracks", icon: <BookOpen className="w-6 h-6" /> },
   { value: "100%", label: "Structured Learning", icon: <Target className="w-6 h-6" /> }
@@ -274,7 +274,7 @@ const HomePage = () => {
             <motion.div {...fadeInUp}>
               <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-6 px-4 py-2">
                 <Award className="w-4 h-4 mr-2" />
-                Certiport Authorized Testing Center
+                ETI Educom
               </Badge>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1a1a1a] mb-6 leading-tight font-['Poppins']">
                 Building Careers in <span className="text-[#1545ea]">Technology</span>
@@ -376,7 +376,7 @@ const HomePage = () => {
                 <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-[#ebebeb]">
                   <div className="flex items-center gap-2 text-sm text-[#717171]">
                     <Users className="w-4 h-4 text-[#1545ea]" />
-                    <span>2000+ Students</span>
+                    <span>5000+ Students</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-[#717171]">
                     <Award className="w-4 h-4 text-[#1545ea]" />
