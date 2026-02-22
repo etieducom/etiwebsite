@@ -151,10 +151,12 @@ const sampleEvents = [
 const HomePage = () => {
   const [reviews, setReviews] = useState([]);
   const [events, setEvents] = useState([]);
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     fetchReviews();
     fetchEvents();
+    fetchBlogs();
   }, []);
 
   const fetchReviews = async () => {
@@ -177,8 +179,53 @@ const HomePage = () => {
     }
   };
 
+  const fetchBlogs = async () => {
+    try {
+      const response = await axios.get(`${API}/blogs?limit=3`);
+      setBlogs(response.data);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
+
   const displayReviews = reviews.length > 0 ? reviews : sampleReviews;
   const displayEvents = events.length > 0 ? events.slice(0, 6) : sampleEvents;
+  
+  // Sample blogs for fallback
+  const sampleBlogs = [
+    {
+      id: "1",
+      title: "Top 10 IT Skills in Demand for 2025",
+      slug: "top-10-it-skills-2025",
+      excerpt: "Discover the most sought-after IT skills that employers are looking for.",
+      featured_image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400",
+      category: "Career Tips",
+      read_time: 5,
+      created_at: "2025-02-15"
+    },
+    {
+      id: "2",
+      title: "How to Choose the Right Career Track",
+      slug: "choose-right-career-track",
+      excerpt: "A guide to help you select the best career path based on your interests.",
+      featured_image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=400",
+      category: "Career Guidance",
+      read_time: 7,
+      created_at: "2025-02-10"
+    },
+    {
+      id: "3",
+      title: "The Future of Digital Marketing",
+      slug: "future-digital-marketing",
+      excerpt: "Explore the evolving landscape of digital marketing and opportunities.",
+      featured_image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400",
+      category: "Industry Insights",
+      read_time: 6,
+      created_at: "2025-02-05"
+    }
+  ];
+  
+  const displayBlogs = blogs.length > 0 ? blogs.slice(0, 3) : sampleBlogs;
 
   return (
     <div className="pt-[72px]" data-testid="home-page">
