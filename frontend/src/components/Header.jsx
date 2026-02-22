@@ -237,7 +237,7 @@ const Header = () => {
           />
           <div className="mobile-menu-panel" data-testid="mobile-menu">
             <div className="flex justify-between items-center mb-6">
-              <TextLogo />
+              <img src={LOGO_BLUE} alt="ETI Educom" className="h-10 w-auto object-contain" />
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X className="w-6 h-6" />
               </button>
@@ -279,6 +279,8 @@ const Header = () => {
               </div>
               
               <Link to="/events" className="block py-3 font-medium border-b border-[#ebebeb]">Events</Link>
+              <Link to="/blogs" className="block py-3 font-medium border-b border-[#ebebeb]">Blogs</Link>
+              <Link to="/faq" className="block py-3 font-medium border-b border-[#ebebeb]">FAQ</Link>
               <Link to="/hire-from-us" className="block py-3 font-medium border-b border-[#ebebeb]">Hire From Us</Link>
               <Link to="/join-team" className="block py-3 font-medium border-b border-[#ebebeb]">Join ETI Team</Link>
               <Link to="/franchise" className="block py-3 font-medium border-b border-[#ebebeb]">Franchise</Link>
@@ -287,9 +289,9 @@ const Header = () => {
             </nav>
 
             <div className="mt-6">
-              <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/free-counselling" onClick={() => setMobileMenuOpen(false)}>
                 <button className="btn-primary w-full justify-center">
-                  Enquire Now
+                  Free Counselling
                 </button>
               </Link>
             </div>
