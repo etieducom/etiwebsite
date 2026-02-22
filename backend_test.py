@@ -69,6 +69,10 @@ class ETIEducomAPITester:
         print(f"Base URL: {self.base_url}")
         print("=" * 60)
 
+        # Store created IDs for cleanup
+        self.created_event_id = None
+        self.created_job_id = None
+
         # Test API root endpoint
         self.run_test(
             "API Root",
@@ -115,6 +119,150 @@ class ETIEducomAPITester:
             200
         )
 
+        # Test Events API
+        event_data = {
+            "title": "Test Career Workshop",
+            "description": "A comprehensive workshop on computer career tracks and opportunities in the tech industry.",
+            "event_date": "2024-02-15",
+            "event_time": "10:00 AM",
+            "location": "ETI Educom Head Office",
+            "image_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600"
+        }
+
+        success, response = self.run_test(
+            "Create Event",
+            "POST",
+            "events",
+            200,
+            data=event_data
+        )
+
+        if success and 'id' in response:
+            self.created_event_id = response['id']
+            print(f"Created event with ID: {self.created_event_id}")
+
+        # Test getting events
+        self.run_test(
+            "Get Active Events",
+            "GET",
+            "events",
+            200
+        )
+
+        self.run_test(
+            "Get All Events",
+            "GET",
+            "events?active_only=false",
+            200
+        )
+
+        # Test Jobs API
+        job_data = {
+            "title": "Computer Instructor",
+            "department": "Academics",
+            "location": "Head Office",
+            "type": "Full-time",
+            "description": "We are looking for a skilled computer instructor to teach our career track programs.",
+            "requirements": [
+                "Bachelor's degree in Computer Science or related field",
+                "3+ years teaching experience",
+                "Knowledge of programming languages",
+                "Excellent communication skills"
+            ]
+        }
+
+        success, response = self.run_test(
+            "Create Job",
+            "POST",
+            "jobs",
+            200,
+            data=job_data
+        )
+
+        if success and 'id' in response:
+            self.created_job_id = response['id']
+            print(f"Created job with ID: {self.created_job_id}")
+
+        # Test getting jobs
+        self.run_test(
+            "Get Active Jobs",
+            "GET",
+            "jobs",
+            200
+        )
+
+        self.run_test(
+            "Get All Jobs",
+            "GET",
+            "jobs?active_only=false",
+            200
+        )
+
+        # Test Job Applications API
+        if self.created_job_id:
+            application_data = {
+                "job_id": self.created_job_id,
+                "name": "Jane Smith",
+                "email": "jane.smith@example.com",
+                "phone": "+91 9876543210",
+                "resume_url": "https://example.com/jane-resume.pdf",
+                "cover_letter": "I am very interested in the Computer Instructor position. With my experience in teaching and technology, I believe I would be a great fit for this role."
+            }
+
+            self.run_test(
+                "Submit Job Application",
+                "POST",
+                "applications",
+                200,
+                data=application_data
+            )
+
+        # Test getting job applications
+        self.run_test(
+            "Get Job Applications",
+            "GET",
+            "applications",
+            200
+        )
+
+        # Test Hire Request API
+        hire_request_data = {
+            "company_name": "TechCorp Solutions",
+            "contact_person": "Mark Johnson",
+            "email": "mark@techcorp.com",
+            "phone": "+91 9876543210",
+            "requirements": "We need 10 trained professionals in software development and digital marketing for our expanding team. Looking for candidates with certification and practical experience."
+        }
+
+        self.run_test(
+            "Submit Hire Request",
+            "POST",
+            "hire-request",
+            200,
+            data=hire_request_data
+        )
+
+        # Test getting hire requests
+        self.run_test(
+            "Get Hire Requests",
+            "GET",
+            "hire-requests",
+            200
+        )
+
+        # Test Certificate Verification API
+        cert_data = {
+            "certificate_id": "ETI-2023-001234"
+        }
+
+        self.run_test(
+            "Verify Certificate (Invalid)",
+            "POST",
+            "verify-certificate",
+            200,
+            data=cert_data
+        )
+
         # Test status check endpoints
         status_data = {
             "client_name": "ETI Educom Web Client"
@@ -135,7 +283,24 @@ class ETIEducomAPITester:
             200
         )
 
-        # Test invalid contact form submission (missing required fields)
+        # Test individual resource endpoints
+        if self.created_event_id:
+            self.run_test(
+                "Get Single Event",
+                "GET",
+                f"events/{self.created_event_id}",
+                200
+            )
+
+        if self.created_job_id:
+            self.run_test(
+                "Get Single Job",
+                "GET",
+                f"jobs/{self.created_job_id}",
+                200
+            )
+
+        # Test invalid requests for error handling
         invalid_contact_data = {
             "name": "J",  # Too short
             "email": "invalid-email",  # Invalid email
@@ -150,6 +315,23 @@ class ETIEducomAPITester:
             422,  # Validation error
             data=invalid_contact_data
         )
+
+        # Clean up test data
+        if self.created_event_id:
+            self.run_test(
+                "Delete Test Event",
+                "DELETE",
+                f"events/{self.created_event_id}",
+                200
+            )
+
+        if self.created_job_id:
+            self.run_test(
+                "Delete Test Job",
+                "DELETE",
+                f"jobs/{self.created_job_id}",
+                200
+            )
 
     def print_summary(self):
         """Print test results summary"""
