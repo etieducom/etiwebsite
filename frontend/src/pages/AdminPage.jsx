@@ -402,6 +402,22 @@ const AdminPage = () => {
     }
   };
 
+  // Technical SEO handler
+  const handleTechSeoSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await axios.post(`${API}/technical-seo`, techSeoForm);
+      toast.success("Technical SEO settings saved successfully!");
+      setShowTechSeoModal(false);
+      fetchData();
+    } catch (error) {
+      toast.error("Failed to save Technical SEO settings");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   // Delete handlers for franchise and counselling
   const handleDeleteFranchise = async (id) => {
     if (!window.confirm("Delete this franchise enquiry?")) return;
