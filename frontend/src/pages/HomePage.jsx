@@ -303,25 +303,84 @@ const HomePage = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800"
-                  alt="Students in computer lab"
-                  className="w-full h-auto object-cover"
-                  data-testid="hero-image"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1545ea]/30 to-transparent"></div>
-              </div>
-              
-              {/* Floating Stats Card */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-5 hidden sm:block">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-[#1545ea] rounded-lg flex items-center justify-center">
-                    <Users className="w-7 h-7 text-white" />
+              {/* Quick Query Form */}
+              <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 border border-[#ebebeb]">
+                <div className="text-center mb-6">
+                  <h2 className="text-xl font-bold text-[#1a1a1a] font-['Poppins']">
+                    Quick Enquiry
+                  </h2>
+                  <p className="text-sm text-[#717171] mt-1">
+                    Get a callback within 24 hours
+                  </p>
+                </div>
+
+                <form onSubmit={handleQuickSubmit} className="space-y-4" data-testid="quick-enquiry-form">
+                  <Input
+                    type="text"
+                    placeholder="Your Name *"
+                    value={quickForm.name}
+                    onChange={(e) => setQuickForm({...quickForm, name: e.target.value})}
+                    className="form-input h-12"
+                    required
+                    data-testid="quick-name"
+                  />
+
+                  <Input
+                    type="tel"
+                    placeholder="Phone Number *"
+                    value={quickForm.phone}
+                    onChange={(e) => setQuickForm({...quickForm, phone: e.target.value})}
+                    className="form-input h-12"
+                    required
+                    data-testid="quick-phone"
+                  />
+
+                  <Select 
+                    value={quickForm.interest} 
+                    onValueChange={(v) => setQuickForm({...quickForm, interest: v})}
+                  >
+                    <SelectTrigger className="form-input h-12" data-testid="quick-interest">
+                      <SelectValue placeholder="Interested In *" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Computer Career Foundation">Computer Career Foundation</SelectItem>
+                      <SelectItem value="Digital Design & Marketing">Digital Design & Marketing</SelectItem>
+                      <SelectItem value="IT Support & Cybersecurity">IT Support & Cybersecurity</SelectItem>
+                      <SelectItem value="Software Development">Software Development</SelectItem>
+                      <SelectItem value="Summer Training">Summer Training</SelectItem>
+                      <SelectItem value="Short Term Courses">Short Term Courses</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Button 
+                    type="submit" 
+                    className="btn-primary w-full h-12"
+                    disabled={quickSubmitting}
+                    data-testid="quick-submit"
+                  >
+                    {quickSubmitting ? "Submitting..." : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Submit Enquiry
+                      </>
+                    )}
+                  </Button>
+
+                  <p className="text-xs text-center text-[#717171]">
+                    We respect your privacy. No spam calls.
+                  </p>
+                </form>
+
+                {/* Trust Badges */}
+                <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-[#ebebeb]">
+                  <div className="flex items-center gap-2 text-sm text-[#717171]">
+                    <Users className="w-4 h-4 text-[#1545ea]" />
+                    <span>2000+ Students</span>
                   </div>
-                  <div>
-                    <p className="text-3xl font-bold text-[#1a1a1a]">2000+</p>
-                    <p className="text-sm text-[#717171]">Students Trained</p>
+                  <div className="flex items-center gap-2 text-sm text-[#717171]">
+                    <Award className="w-4 h-4 text-[#1545ea]" />
+                    <span>Since 2017</span>
                   </div>
                 </div>
               </div>
