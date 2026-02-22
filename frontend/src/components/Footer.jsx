@@ -61,7 +61,7 @@ const Footer = () => {
     <footer className="footer-main" data-testid="footer">
       <div className="container-main">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 pb-12 border-b border-[#333]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-10 pb-12 border-b border-[#333]">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <img 
@@ -162,6 +162,21 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+
+          {/* Our Branches */}
+          <div>
+            <h4 className="footer-heading">Our Branches</h4>
+            <ul className="space-y-3">
+              {branches.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href} className="footer-link flex items-center gap-1 hover:text-white">
+                    <Building className="w-3 h-3" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Contact Info Bar */}
@@ -172,7 +187,7 @@ const Footer = () => {
             </div>
             <div>
               <p className="text-xs text-[#717171] mb-1">Call Us</p>
-              <p className="text-white font-medium">+91 XXXXX XXXXX</p>
+              <p className="text-white font-medium">{CONTACT_INFO.phone}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -181,7 +196,7 @@ const Footer = () => {
             </div>
             <div>
               <p className="text-xs text-[#717171] mb-1">Email Us</p>
-              <p className="text-white font-medium">info@etieducom.com</p>
+              <p className="text-white font-medium">{CONTACT_INFO.email}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -189,8 +204,8 @@ const Footer = () => {
               <MapPin className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-xs text-[#717171] mb-1">Visit Us</p>
-              <p className="text-white font-medium">Head Office, India</p>
+              <p className="text-xs text-[#717171] mb-1">Head Office</p>
+              <p className="text-white font-medium text-sm">{CONTACT_INFO.address}</p>
             </div>
           </div>
         </div>
