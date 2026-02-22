@@ -8,7 +8,8 @@ import {
   Linkedin, 
   Instagram,
   Youtube,
-  ChevronRight
+  ChevronRight,
+  Building
 } from "lucide-react";
 
 const LOGO_WHITE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/guxbyjtl_etilogo%20white.png";
@@ -19,6 +20,13 @@ const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/etieducom/",
   linkedin: "https://www.linkedin.com/company/etieducom",
   youtube: "https://www.youtube.com/@ETIEducomofficial"
+};
+
+// Contact Info
+const CONTACT_INFO = {
+  phone: "+91 9646727676",
+  email: "helpdesk@etieducom.com",
+  address: "ETI Educom, Jodhamal Colony, Dhangu Road, Pathankot"
 };
 
 const Footer = () => {
@@ -33,7 +41,8 @@ const Footer = () => {
     { label: "Computer Career Foundation", href: "/programs/computer-foundation" },
     { label: "Digital Design & Marketing", href: "/programs/digital-design" },
     { label: "IT Support & Networking", href: "/programs/it-networking" },
-    { label: "Software Development", href: "/programs/software-development" }
+    { label: "Software Development", href: "/programs/software-development" },
+    { label: "Summer Training", href: "/summer-training" }
   ];
 
   const resources = [
@@ -41,8 +50,11 @@ const Footer = () => {
     { label: "FAQ", href: "/faq" },
     { label: "Hire From Us", href: "/hire-from-us" },
     { label: "Join ETI Team", href: "/join-team" },
-    { label: "Franchise", href: "/franchise" },
-    { label: "Verify Certificate", href: "/verify-certificate" }
+    { label: "Franchise", href: "/franchise" }
+  ];
+
+  const branches = [
+    { label: "Pathankot", href: "/branches/pathankot" }
   ];
 
   return (
