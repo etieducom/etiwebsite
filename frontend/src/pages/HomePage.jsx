@@ -879,6 +879,44 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Cyber Warriors Section */}
+      <section className="py-20 bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] text-white" data-testid="cyber-warriors-section">
+        <div className="container-main">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeInUp}>
+              <Badge className="bg-[#1545ea]/20 text-[#6b9fff] border-0 mb-4">
+                <Shield className="w-4 h-4 mr-1" />
+                An Initiative by ETI Educom
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 font-['Poppins']">
+                Cyber Warriors
+              </h2>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                Safeguarding citizens of India from online threats through awareness programs. 
+                Join us in creating a safer digital landscape for everyone.
+              </p>
+              <Link to="/cyber-warriors">
+                <Button className="bg-[#1545ea] hover:bg-[#0d36c4] text-white">
+                  Know More
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </Link>
+            </motion.div>
+            <motion.div 
+              {...fadeInUp}
+              transition={{ delay: 0.2 }}
+              className="flex justify-center"
+            >
+              <img 
+                src="https://customer-assets.emergentagent.com/job_a7e86cb7-9664-465e-9ee0-aab3368ca51d/artifacts/8vl4eoeh_cyber%20warriros.png"
+                alt="Cyber Warriors"
+                className="max-w-[250px] h-auto"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-[#1545ea]" data-testid="cta-section">
         <div className="container-main text-center">
