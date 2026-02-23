@@ -657,6 +657,9 @@ const AdminPage = () => {
               <TabsTrigger value="quick" className="flex items-center gap-1 text-xs">
                 <MessageSquare className="w-3 h-3" /> Quick ({quickEnquiries.length})
               </TabsTrigger>
+              <TabsTrigger value="cyberwarriors" className="flex items-center gap-1 text-xs">
+                <Shield className="w-3 h-3" /> Cyber Warriors ({cyberWarriorsEvents.length + cyberWarriorsRegistrations.length})
+              </TabsTrigger>
             </TabsList>
 
             {/* Events Tab */}
