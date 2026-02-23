@@ -101,6 +101,7 @@ const AdminPage = () => {
     tags: "", author: "ETI Educom", read_time: 5, is_featured: false, meta_title: "", meta_description: ""
   });
   const [faqForm, setFaqForm] = useState({ question: "", answer: "", category: "General", order: 0 });
+  const [cwEventForm, setCwEventForm] = useState({ title: "", description: "", image: "", date: "" });
   const [seoForm, setSeoForm] = useState({
     page_slug: "", meta_title: "", meta_description: "", meta_keywords: "", og_title: "", og_description: "", og_image: ""
   });
