@@ -1104,6 +1104,82 @@ const AdminPage = () => {
                 </div>
               )}
             </TabsContent>
+
+            {/* Cyber Warriors Tab */}
+            <TabsContent value="cyberwarriors">
+              <div className="space-y-8">
+                {/* Events Section */}
+                <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-[#1a1a1a]">Cyber Warriors Events</h2>
+                    <Button className="btn-primary" onClick={() => setShowCwEventModal(true)} data-testid="add-cw-event-btn">
+                      <Plus className="w-4 h-4" /> Add Event
+                    </Button>
+                  </div>
+                  {cyberWarriorsEvents.length === 0 ? (
+                    <Card className="card-default"><CardContent className="p-8 text-center">
+                      <Shield className="w-12 h-12 text-[#b0b0b0] mx-auto mb-4" />
+                      <p className="text-[#717171]">No Cyber Warriors events yet</p>
+                    </CardContent></Card>
+                  ) : (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {cyberWarriorsEvents.map((event) => (
+                        <Card key={event.id} className="card-default">
+                          {event.image && (
+                            <img src={event.image} alt={event.title} className="w-full h-32 object-cover rounded-t-xl" />
+                          )}
+                          <CardContent className="p-4">
+                            <h3 className="font-semibold text-[#1a1a1a] line-clamp-1">{event.title}</h3>
+                            <p className="text-sm text-[#717171] line-clamp-2 mt-1">{event.description}</p>
+                            <div className="flex justify-end mt-3">
+                              <Button variant="destructive" size="sm" onClick={() => handleDeleteCwEvent(event.id)}>
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Registrations Section */}
+                <div>
+                  <h2 className="text-xl font-bold text-[#1a1a1a] mb-6">Cyber Warriors Registrations</h2>
+                  {cyberWarriorsRegistrations.length === 0 ? (
+                    <Card className="card-default"><CardContent className="p-8 text-center">
+                      <Users className="w-12 h-12 text-[#b0b0b0] mx-auto mb-4" />
+                      <p className="text-[#717171]">No registrations yet</p>
+                    </CardContent></Card>
+                  ) : (
+                    <div className="space-y-4">
+                      {cyberWarriorsRegistrations.map((reg) => (
+                        <Card key={reg.id} className="card-default">
+                          <CardContent className="p-4 flex items-center justify-between">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <h3 className="font-semibold text-[#1a1a1a]">{reg.name}</h3>
+                                <Badge variant="outline">{reg.registration_type}</Badge>
+                              </div>
+                              <p className="text-sm text-[#717171]">{reg.email} | {reg.contact_number}</p>
+                              {reg.organization_name && (
+                                <p className="text-sm text-[#1545ea]">{reg.organization_type}: {reg.organization_name}</p>
+                              )}
+                              {reg.preferred_date && (
+                                <p className="text-xs text-[#717171] mt-1">Preferred Date: {reg.preferred_date}</p>
+                              )}
+                            </div>
+                            <Button variant="destructive" size="sm" onClick={() => handleDeleteCwRegistration(reg.id)}>
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </TabsContent>
           </Tabs>
         </div>
       </section>
