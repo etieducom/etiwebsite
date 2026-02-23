@@ -61,6 +61,7 @@ function App() {
                   <Route path="/join-team" element={<JoinTeamPage />} />
                   <Route path="/franchise" element={<FranchisePage />} />
                   <Route path="/branches/:branchId" element={<BranchPage />} />
+                  <Route path="/cyber-warriors" element={<CyberWarriorsPage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                   <Route path="/admin" element={<AdminPage />} />
