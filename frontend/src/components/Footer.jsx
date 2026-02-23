@@ -48,6 +48,7 @@ const Footer = () => {
   const resources = [
     { label: "Blogs", href: "/blogs" },
     { label: "FAQ", href: "/faq" },
+    { label: "Cyber Warriors", href: "/cyber-warriors" },
     { label: "Hire From Us", href: "/hire-from-us" },
     { label: "Join ETI Team", href: "/join-team" },
     { label: "Franchise", href: "/franchise" }
