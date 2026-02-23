@@ -27,6 +27,7 @@ import SummerTrainingPage from "./pages/SummerTrainingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import AdminPage from "./pages/AdminPage";
 import BranchPage from "./pages/BranchPage";
+import CyberWarriorsPage from "./pages/CyberWarriorsPage";
 
 function App() {
   return (
