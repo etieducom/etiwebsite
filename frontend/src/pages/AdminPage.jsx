@@ -1338,6 +1338,64 @@ const AdminPage = () => {
                   ))}
                 </div>
               )}
+
+              {/* Popup Modal Section */}
+              <div className="mt-12 pt-8 border-t border-[#ebebeb]">
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h2 className="text-xl font-bold text-[#1a1a1a]">Popup Modal</h2>
+                    <p className="text-sm text-[#717171]">A modal that appears after visitors stay on homepage for a few seconds</p>
+                  </div>
+                  <Button className="btn-primary" onClick={() => setShowPopupModal(true)} data-testid="edit-popup-modal-btn">
+                    <Plus className="w-4 h-4" /> {popupModalData ? 'Edit Modal' : 'Create Modal'}
+                  </Button>
+                </div>
+                
+                {!popupModalData ? (
+                  <Card className="card-default"><CardContent className="p-8 text-center">
+                    <Bell className="w-12 h-12 text-[#b0b0b0] mx-auto mb-4" />
+                    <p className="text-[#717171]">No popup modal configured</p>
+                    <p className="text-sm text-[#b0b0b0] mt-2">Create one to engage visitors with special offers or announcements</p>
+                  </CardContent></Card>
+                ) : (
+                  <Card className={`card-default ${!popupModalData.is_active ? 'opacity-60' : ''}`}>
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-6">
+                        {popupModalData.image_url && (
+                          <img 
+                            src={popupModalData.image_url} 
+                            alt={popupModalData.title}
+                            className="w-32 h-24 object-cover rounded-lg"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge className={popupModalData.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}>
+                              {popupModalData.is_active ? 'Active' : 'Inactive'}
+                            </Badge>
+                            <span className="text-xs text-[#717171]">Shows after {popupModalData.delay_seconds}s</span>
+                          </div>
+                          <h3 className="font-bold text-lg text-[#1a1a1a]">{popupModalData.title}</h3>
+                          <p className="text-[#4a4a4a] text-sm mt-1 line-clamp-2">{popupModalData.body}</p>
+                          {popupModalData.cta_text && (
+                            <p className="text-sm text-[#1545ea] mt-2">
+                              CTA: "{popupModalData.cta_text}" → {popupModalData.cta_link}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Button variant="outline" size="sm" onClick={handleTogglePopupModal}>
+                            {popupModalData.is_active ? 'Deactivate' : 'Activate'}
+                          </Button>
+                          <Button variant="destructive" size="sm" onClick={handleDeletePopupModal}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             </TabsContent>
           </Tabs>
         </div>
