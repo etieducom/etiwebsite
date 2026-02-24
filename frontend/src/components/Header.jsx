@@ -19,6 +19,7 @@ import {
   FileText,
   HelpCircle
 } from "lucide-react";
+import { useAnnouncement } from "../context/AnnouncementContext";
 
 const LOGO_BLUE = "https://customer-assets.emergentagent.com/job_career-tracks-hub/artifacts/zm56gptp_eti%20.png";
 
