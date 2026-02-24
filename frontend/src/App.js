@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
+import AnnouncementBar from "./components/AnnouncementBar";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -42,6 +43,7 @@ function App() {
           {/* All other routes with header/footer */}
           <Route path="/*" element={
             <>
+              <AnnouncementBar />
               <Header />
               <main>
                 <Routes>
