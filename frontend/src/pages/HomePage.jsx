@@ -879,49 +879,105 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Cyber Warriors Section */}
-      <section className="py-20 relative overflow-hidden" data-testid="cyber-warriors-section">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#0f172a]"></div>
-        <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(59,130,246,0.3) 1px, transparent 0)', backgroundSize: '32px 32px'}}></div>
+      {/* Cyber Warriors Section - Premium Dark Theme */}
+      <section className="py-24 md:py-32 relative overflow-hidden" data-testid="cyber-warriors-section">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-[#0a0a0a]"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full" style={{
+            backgroundImage: `linear-gradient(rgba(21, 69, 234, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(21, 69, 234, 0.03) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+        {/* Glowing orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1545ea]/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px]"></div>
         
         <div className="container-main relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Content */}
             <motion.div {...fadeInUp}>
-              <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-2 mb-6">
-                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                <span className="text-red-400 text-sm font-medium">Cyber Safety Initiative</span>
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-full px-5 py-2.5 mb-8">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                </span>
+                <span className="text-red-400 text-sm font-semibold tracking-wide">CYBER SAFETY INITIATIVE</span>
               </div>
               
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-['Poppins']">
-                Cyber Warriors
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-['Poppins'] leading-tight">
+                Become a<br />
+                <span className="bg-gradient-to-r from-[#1545ea] via-cyan-400 to-[#1545ea] bg-clip-text text-transparent">
+                  Cyber Warrior
+                </span>
               </h2>
-              <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-                Protecting India's digital citizens from online threats through awareness, 
-                education, and community empowerment programs.
+              
+              <p className="text-lg md:text-xl text-gray-400 mb-10 leading-relaxed max-w-lg">
+                Join our mission to protect India's digital citizens from online threats through awareness, education, and community empowerment.
               </p>
               
-              <div className="flex flex-wrap justify-center gap-6 mb-10">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <Shield className="w-5 h-5 text-[#1545ea]" />
-                  <span>Fraud Prevention</span>
+              {/* Stats Row */}
+              <div className="flex flex-wrap gap-8 mb-10">
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-white">500+</p>
+                  <p className="text-sm text-gray-500 mt-1">Sessions Conducted</p>
                 </div>
-                <div className="flex items-center gap-2 text-gray-300">
-                  <Users className="w-5 h-5 text-[#1545ea]" />
-                  <span>Community Training</span>
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-white">10K+</p>
+                  <p className="text-sm text-gray-500 mt-1">People Trained</p>
                 </div>
-                <div className="flex items-center gap-2 text-gray-300">
-                  <Award className="w-5 h-5 text-[#1545ea]" />
-                  <span>Free Sessions</span>
+                <div className="text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-white">50+</p>
+                  <p className="text-sm text-gray-500 mt-1">Partner Schools</p>
                 </div>
               </div>
 
               <Link to="/cyber-warriors">
-                <Button className="bg-[#1545ea] hover:bg-[#0d36c4] text-white px-8 py-3 text-lg">
+                <Button className="group bg-gradient-to-r from-[#1545ea] to-cyan-500 hover:from-[#0d36c4] hover:to-cyan-600 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg shadow-[#1545ea]/25 hover:shadow-[#1545ea]/40 transition-all duration-300">
                   Join the Mission
-                  <ChevronRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
+            </motion.div>
+
+            {/* Right - Feature Cards */}
+            <motion.div 
+              {...fadeInUp}
+              transition={{ delay: 0.2 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              <div className="space-y-4">
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#1545ea]/50 transition-colors">
+                  <div className="w-12 h-12 bg-[#1545ea]/20 rounded-xl flex items-center justify-center mb-4">
+                    <Shield className="w-6 h-6 text-[#1545ea]" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Fraud Prevention</h4>
+                  <p className="text-gray-500 text-sm">Learn to identify and avoid online scams</p>
+                </div>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
+                  <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4">
+                    <Users className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Community Training</h4>
+                  <p className="text-gray-500 text-sm">Free sessions for schools & organizations</p>
+                </div>
+              </div>
+              <div className="space-y-4 mt-8">
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-orange-500/50 transition-colors">
+                  <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4">
+                    <Award className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Certification</h4>
+                  <p className="text-gray-500 text-sm">Get certified as a Cyber Warrior</p>
+                </div>
+                <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-500/50 transition-colors">
+                  <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+                    <Target className="w-6 h-6 text-green-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Expert Led</h4>
+                  <p className="text-gray-500 text-sm">Industry experts guide every session</p>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
