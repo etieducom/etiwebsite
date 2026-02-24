@@ -1801,6 +1801,87 @@ async def delete_quick_enquiry(enquiry_id: str):
     return {"message": "Enquiry deleted successfully"}
 
 
+# ============ Announcement Routes ============
+
+@api_router.post("/announcements", response_model=AnnouncementResponse)
+async def create_announcement(input: AnnouncementCreate):
+    try:
+        ann_dict = input.model_dump()
+        ann_obj = Announcement(**ann_dict)
+        doc = ann_obj.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        await db.announcements.insert_one(doc)
+        return AnnouncementResponse(**doc)
+    except Exception as e:
+        logging.error(f"Error creating announcement: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create announcement")
+
+
+@api_router.get("/announcements", response_model=List[AnnouncementResponse])
+async def get_announcements(active_only: bool = True):
+    query = {"is_active": True} if active_only else {}
+    announcements = await db.announcements.find(query, {"_id": 0}).sort("order", 1).to_list(100)
+    return [
+        AnnouncementResponse(
+            id=a['id'], text=a['text'], link=a.get('link'), link_text=a.get('link_text'),
+            is_active=a.get('is_active', True), order=a.get('order', 0),
+            created_at=a['created_at'] if isinstance(a['created_at'], str) else a['created_at'].isoformat()
+        ) for a in announcements
+    ]
+
+
+@api_router.put("/announcements/{announcement_id}", response_model=AnnouncementResponse)
+async def update_announcement(announcement_id: str, input: AnnouncementUpdate):
+    update_data = {k: v for k, v in input.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No data to update")
+    result = await db.announcements.update_one({"id": announcement_id}, {"$set": update_data})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    ann = await db.announcements.find_one({"id": announcement_id}, {"_id": 0})
+    return AnnouncementResponse(
+        id=ann['id'], text=ann['text'], link=ann.get('link'), link_text=ann.get('link_text'),
+        is_active=ann.get('is_active', True), order=ann.get('order', 0),
+        created_at=ann['created_at'] if isinstance(ann['created_at'], str) else ann['created_at'].isoformat()
+    )
+
+
+@api_router.delete("/announcements/{announcement_id}")
+async def delete_announcement(announcement_id: str):
+    result = await db.announcements.delete_one({"id": announcement_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    return {"message": "Announcement deleted successfully"}
+
+
+@api_router.get("/cyber-warriors/upcoming-events")
+async def get_upcoming_cyber_warriors_events():
+    """Get Cyber Warriors events happening within the next 3 days for announcement bar"""
+    from datetime import timedelta
+    today = datetime.now(timezone.utc).date()
+    three_days_later = today + timedelta(days=3)
+    
+    events = await db.cyber_warriors_events.find({"is_active": True}, {"_id": 0}).to_list(100)
+    upcoming = []
+    for event in events:
+        event_date_str = event.get('date')
+        if event_date_str:
+            try:
+                event_date = datetime.strptime(event_date_str, "%Y-%m-%d").date()
+                if today <= event_date <= three_days_later:
+                    upcoming.append({
+                        "id": event['id'],
+                        "title": event['title'],
+                        "date": event_date_str,
+                        "is_today": event_date == today,
+                        "days_until": (event_date - today).days
+                    })
+            except ValueError:
+                continue
+    
+    return upcoming
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
