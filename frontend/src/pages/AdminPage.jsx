@@ -1226,6 +1226,63 @@ const AdminPage = () => {
                 </div>
               </div>
             </TabsContent>
+
+            {/* Announcements Tab */}
+            <TabsContent value="announcements">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-[#1a1a1a]">Announcement Bar</h2>
+                  <p className="text-sm text-[#717171]">Announcements appear above the navbar across all pages. Cyber Warriors events within 3 days are auto-detected.</p>
+                </div>
+                <Button className="btn-primary" onClick={() => setShowAnnouncementModal(true)} data-testid="add-announcement-btn">
+                  <Plus className="w-4 h-4" /> Add Announcement
+                </Button>
+              </div>
+              {announcements.length === 0 ? (
+                <Card className="card-default"><CardContent className="p-8 text-center">
+                  <MessageSquare className="w-12 h-12 text-[#b0b0b0] mx-auto mb-4" />
+                  <p className="text-[#717171]">No announcements yet</p>
+                  <p className="text-sm text-[#b0b0b0] mt-2">Cyber Warriors events within 3 days will auto-appear in the bar</p>
+                </CardContent></Card>
+              ) : (
+                <div className="space-y-4">
+                  {announcements.map((announcement) => (
+                    <Card key={announcement.id} className={`card-default ${!announcement.is_active ? 'opacity-60' : ''}`}>
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge className={announcement.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}>
+                                {announcement.is_active ? 'Active' : 'Inactive'}
+                              </Badge>
+                              <span className="text-xs text-[#717171]">Order: {announcement.order}</span>
+                            </div>
+                            <p className="font-medium text-[#1a1a1a]">{announcement.text}</p>
+                            {announcement.link && (
+                              <p className="text-sm text-[#1545ea] mt-1">
+                                Link: {announcement.link} {announcement.link_text && `(${announcement.link_text})`}
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => handleToggleAnnouncement(announcement.id, announcement.is_active)}
+                            >
+                              {announcement.is_active ? 'Deactivate' : 'Activate'}
+                            </Button>
+                            <Button variant="destructive" size="sm" onClick={() => handleDeleteAnnouncement(announcement.id)}>
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </TabsContent>
           </Tabs>
         </div>
       </section>
