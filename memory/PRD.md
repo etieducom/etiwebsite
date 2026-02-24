@@ -156,10 +156,12 @@ Build the official website for "ETI Educom", a computer career school in India. 
 - [x] Admin Technical SEO tab
 - [x] 5 new program pages created
 - [x] Pathankot branch page created
-- [x] Cyber Warriors homepage section (dark theme, stats, feature cards)
-- [x] Cyber Warriors landing page with registration form
+- [x] Cyber Warriors homepage section (dark theme, stats, feature cards) - REDESIGNED
+- [x] Cyber Warriors landing page with registration form - REDESIGNED
 - [x] Cyber Warriors past events section with modal view
 - [x] Admin panel Cyber Warriors management (events + registrations)
+- [x] **Announcement Bar** - Global bar above navbar with multiple announcements, auto-detection of Cyber Warriors events
+- [x] Admin panel Announcements tab with full CRUD
 
 ## Future/Backlog Tasks
 - [ ] Refactor AdminPage.jsx into smaller components (1500+ lines currently - HIGH PRIORITY)
