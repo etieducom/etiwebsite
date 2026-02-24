@@ -75,6 +75,7 @@ const AdminPage = () => {
   const [technicalSeo, setTechnicalSeo] = useState({});
   const [cyberWarriorsEvents, setCyberWarriorsEvents] = useState([]);
   const [cyberWarriorsRegistrations, setCyberWarriorsRegistrations] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Modal states
@@ -87,6 +88,7 @@ const AdminPage = () => {
   const [showSeoModal, setShowSeoModal] = useState(false);
   const [showTechSeoModal, setShowTechSeoModal] = useState(false);
   const [showCwEventModal, setShowCwEventModal] = useState(false);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
 
   // Form states
   const [eventForm, setEventForm] = useState({ title: "", description: "", event_date: "", event_time: "", location: "", image_url: "" });
