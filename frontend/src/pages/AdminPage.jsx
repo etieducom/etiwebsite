@@ -703,6 +703,9 @@ const AdminPage = () => {
               <TabsTrigger value="cyberwarriors" className="flex items-center gap-1 text-xs">
                 <Shield className="w-3 h-3" /> Cyber Warriors ({cyberWarriorsEvents.length + cyberWarriorsRegistrations.length})
               </TabsTrigger>
+              <TabsTrigger value="announcements" className="flex items-center gap-1 text-xs bg-[#1545ea]/10">
+                <MessageSquare className="w-3 h-3" /> Announcements ({announcements.length})
+              </TabsTrigger>
             </TabsList>
 
             {/* Events Tab */}
