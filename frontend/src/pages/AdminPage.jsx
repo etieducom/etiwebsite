@@ -166,7 +166,7 @@ const AdminPage = () => {
 
   const fetchData = async () => {
     try {
-      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes] = await Promise.all([
+      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes, popupModalRes] = await Promise.all([
         axios.get(`${API}/events?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/jobs?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/reviews?active_only=false`).catch(() => ({ data: [] })),
@@ -182,7 +182,8 @@ const AdminPage = () => {
         axios.get(`${API}/technical-seo`).catch(() => ({ data: {} })),
         axios.get(`${API}/cyber-warriors/events?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/cyber-warriors/registrations`).catch(() => ({ data: [] })),
-        axios.get(`${API}/announcements?active_only=false`).catch(() => ({ data: [] }))
+        axios.get(`${API}/announcements?active_only=false`).catch(() => ({ data: [] })),
+        axios.get(`${API}/popup-modal/admin`).catch(() => ({ data: null }))
       ]);
       setEvents(eventsRes.data);
       setJobs(jobsRes.data);
@@ -200,6 +201,18 @@ const AdminPage = () => {
       setCyberWarriorsEvents(cwEventsRes.data);
       setCyberWarriorsRegistrations(cwRegsRes.data);
       setAnnouncements(announcementsRes.data);
+      setPopupModalData(popupModalRes.data);
+      // Pre-populate popup modal form if data exists
+      if (popupModalRes.data) {
+        setPopupModalForm({
+          title: popupModalRes.data.title || "",
+          body: popupModalRes.data.body || "",
+          image_url: popupModalRes.data.image_url || "",
+          cta_text: popupModalRes.data.cta_text || "",
+          cta_link: popupModalRes.data.cta_link || "",
+          delay_seconds: popupModalRes.data.delay_seconds || 4
+        });
+      }
       // Pre-populate form if data exists
       if (techSeoRes.data && Object.keys(techSeoRes.data).length > 0) {
         setTechSeoForm({
