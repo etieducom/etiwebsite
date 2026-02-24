@@ -104,6 +104,7 @@ const AdminPage = () => {
   });
   const [faqForm, setFaqForm] = useState({ question: "", answer: "", category: "General", order: 0 });
   const [cwEventForm, setCwEventForm] = useState({ title: "", description: "", image: "", date: "" });
+  const [announcementForm, setAnnouncementForm] = useState({ text: "", link: "", link_text: "", order: 0 });
   const [seoForm, setSeoForm] = useState({
     page_slug: "", meta_title: "", meta_description: "", meta_keywords: "", og_title: "", og_description: "", og_image: ""
   });
