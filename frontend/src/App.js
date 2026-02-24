@@ -3,11 +3,15 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 
+// Context
+import { AnnouncementProvider } from "./context/AnnouncementContext";
+
 // Layout
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import AnnouncementBar from "./components/AnnouncementBar";
+import PopupModal from "./components/PopupModal";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -30,22 +34,36 @@ import AdminPage from "./pages/AdminPage";
 import BranchPage from "./pages/BranchPage";
 import CyberWarriorsPage from "./pages/CyberWarriorsPage";
 
+// Layout wrapper component to handle announcement bar spacing
+const MainLayout = ({ children }) => {
+  return (
+    <>
+      <AnnouncementBar />
+      <Header />
+      <main className="main-content">
+        {children}
+      </main>
+      <Footer />
+      <Chatbot />
+      <PopupModal />
+    </>
+  );
+};
+
 function App() {
   return (
     <div className="App">
       <Toaster position="top-right" richColors />
       <BrowserRouter>
-        <Routes>
-          {/* Landing pages - No header/footer */}
-          <Route path="/free-counselling" element={<FreeCounsellingPage />} />
-          <Route path="/summer-training" element={<SummerTrainingPage />} />
-          
-          {/* All other routes with header/footer */}
-          <Route path="/*" element={
-            <>
-              <AnnouncementBar />
-              <Header />
-              <main>
+        <AnnouncementProvider>
+          <Routes>
+            {/* Landing pages - No header/footer */}
+            <Route path="/free-counselling" element={<FreeCounsellingPage />} />
+            <Route path="/summer-training" element={<SummerTrainingPage />} />
+            
+            {/* All other routes with header/footer */}
+            <Route path="/*" element={
+              <MainLayout>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/about" element={<AboutPage />} />
@@ -68,12 +86,10 @@ function App() {
                   <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                   <Route path="/admin" element={<AdminPage />} />
                 </Routes>
-              </main>
-              <Footer />
-              <Chatbot />
-            </>
-          } />
-        </Routes>
+              </MainLayout>
+            } />
+          </Routes>
+        </AnnouncementProvider>
       </BrowserRouter>
     </div>
   );
