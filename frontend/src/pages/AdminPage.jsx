@@ -79,6 +79,7 @@ const AdminPage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [navItems, setNavItems] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Modal states
