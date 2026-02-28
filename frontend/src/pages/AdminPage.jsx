@@ -1005,9 +1005,14 @@ const AdminPage = () => {
                           <h3 className="font-semibold text-[#1a1a1a]">{event.title}</h3>
                           <p className="text-sm text-[#717171]">{event.event_date} | {event.location}</p>
                         </div>
-                        <Button variant="destructive" size="sm" onClick={() => handleDeleteEvent(event.id)}>
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm" onClick={() => handleEditEvent(event)}>
+                            Edit
+                          </Button>
+                          <Button variant="destructive" size="sm" onClick={() => handleDeleteEvent(event.id)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
