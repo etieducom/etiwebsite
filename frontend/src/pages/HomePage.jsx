@@ -252,6 +252,15 @@ const HomePage = () => {
     }
   };
 
+  const fetchTeam = async () => {
+    try {
+      const response = await axios.get(`${API}/team?limit=4`);
+      setTeam(response.data);
+    } catch (error) {
+      console.error("Error fetching team:", error);
+    }
+  };
+
   const displayReviews = reviews.length > 0 ? reviews : sampleReviews;
   const displayEvents = events.length > 0 ? events.slice(0, 6) : sampleEvents;
   
