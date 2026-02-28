@@ -2129,6 +2129,254 @@ const AdminPage = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Team Member Modal */}
+      <Dialog open={showTeamModal} onOpenChange={(open) => { setShowTeamModal(open); if (!open) setEditingTeam(null); }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{editingTeam ? 'Edit Team Member' : 'Add Team Member'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleTeamSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Name *</label>
+                <Input 
+                  placeholder="John Doe" 
+                  value={teamForm.name} 
+                  onChange={(e) => setTeamForm({...teamForm, name: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">Title/Role *</label>
+                <Input 
+                  placeholder="Senior Instructor" 
+                  value={teamForm.title} 
+                  onChange={(e) => setTeamForm({...teamForm, title: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <div>
+              <label className="form-label">Photo URL</label>
+              <Input 
+                placeholder="https://example.com/photo.jpg" 
+                value={teamForm.photo_url} 
+                onChange={(e) => setTeamForm({...teamForm, photo_url: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div>
+              <label className="form-label">Bio</label>
+              <Textarea 
+                placeholder="Brief description about the team member" 
+                value={teamForm.bio} 
+                onChange={(e) => setTeamForm({...teamForm, bio: e.target.value})} 
+                className="form-input" 
+                rows={3}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">LinkedIn URL</label>
+                <Input 
+                  placeholder="https://linkedin.com/in/..." 
+                  value={teamForm.linkedin_url} 
+                  onChange={(e) => setTeamForm({...teamForm, linkedin_url: e.target.value})} 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">Twitter URL</label>
+                <Input 
+                  placeholder="https://twitter.com/..." 
+                  value={teamForm.twitter_url} 
+                  onChange={(e) => setTeamForm({...teamForm, twitter_url: e.target.value})} 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Email</label>
+                <Input 
+                  type="email"
+                  placeholder="john@etieducom.com" 
+                  value={teamForm.email} 
+                  onChange={(e) => setTeamForm({...teamForm, email: e.target.value})} 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">Display Order</label>
+                <Input 
+                  type="number"
+                  placeholder="0" 
+                  value={teamForm.order} 
+                  onChange={(e) => setTeamForm({...teamForm, order: parseInt(e.target.value) || 0})} 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <Button type="submit" className="btn-primary w-full" disabled={submitting}>
+              {submitting ? "Saving..." : (editingTeam ? "Update Member" : "Add Member")}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Branch Modal */}
+      <Dialog open={showBranchModal} onOpenChange={(open) => { setShowBranchModal(open); if (!open) setEditingBranch(null); }}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editingBranch ? 'Edit Branch' : 'Add Branch'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleBranchSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Branch Name *</label>
+                <Input 
+                  placeholder="Pathankot Branch" 
+                  value={branchForm.name} 
+                  onChange={(e) => setBranchForm({...branchForm, name: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">URL Slug *</label>
+                <Input 
+                  placeholder="pathankot" 
+                  value={branchForm.slug} 
+                  onChange={(e) => setBranchForm({...branchForm, slug: e.target.value.toLowerCase().replace(/\s+/g, '-')})} 
+                  required 
+                  className="form-input" 
+                />
+                <p className="text-xs text-[#717171] mt-1">Page will be at /branches/{branchForm.slug || 'slug'}</p>
+              </div>
+            </div>
+            <div>
+              <label className="form-label">Full Address *</label>
+              <Textarea 
+                placeholder="123 Main Street, Building Name" 
+                value={branchForm.address} 
+                onChange={(e) => setBranchForm({...branchForm, address: e.target.value})} 
+                required 
+                className="form-input" 
+                rows={2}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">City *</label>
+                <Input 
+                  placeholder="Pathankot" 
+                  value={branchForm.city} 
+                  onChange={(e) => setBranchForm({...branchForm, city: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">State *</label>
+                <Input 
+                  placeholder="Punjab" 
+                  value={branchForm.state} 
+                  onChange={(e) => setBranchForm({...branchForm, state: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Phone *</label>
+                <Input 
+                  placeholder="9646727676" 
+                  value={branchForm.phone} 
+                  onChange={(e) => setBranchForm({...branchForm, phone: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">Email *</label>
+                <Input 
+                  type="email"
+                  placeholder="branch@etieducom.com" 
+                  value={branchForm.email} 
+                  onChange={(e) => setBranchForm({...branchForm, email: e.target.value})} 
+                  required 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <div>
+              <label className="form-label">Description</label>
+              <Textarea 
+                placeholder="Brief description about this branch" 
+                value={branchForm.description} 
+                onChange={(e) => setBranchForm({...branchForm, description: e.target.value})} 
+                className="form-input" 
+                rows={2}
+              />
+            </div>
+            <div>
+              <label className="form-label">Facilities (comma separated)</label>
+              <Input 
+                placeholder="AC Classrooms, Computer Lab, Library, Cafeteria" 
+                value={branchForm.facilities} 
+                onChange={(e) => setBranchForm({...branchForm, facilities: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="form-label">Timings</label>
+                <Input 
+                  placeholder="Mon-Sat: 9AM - 7PM" 
+                  value={branchForm.timings} 
+                  onChange={(e) => setBranchForm({...branchForm, timings: e.target.value})} 
+                  className="form-input" 
+                />
+              </div>
+              <div>
+                <label className="form-label">Display Order</label>
+                <Input 
+                  type="number"
+                  placeholder="0" 
+                  value={branchForm.order} 
+                  onChange={(e) => setBranchForm({...branchForm, order: parseInt(e.target.value) || 0})} 
+                  className="form-input" 
+                />
+              </div>
+            </div>
+            <div>
+              <label className="form-label">Image URL</label>
+              <Input 
+                placeholder="https://example.com/branch-image.jpg" 
+                value={branchForm.image_url} 
+                onChange={(e) => setBranchForm({...branchForm, image_url: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <div>
+              <label className="form-label">Google Maps Embed URL</label>
+              <Input 
+                placeholder="https://www.google.com/maps/embed?pb=..." 
+                value={branchForm.map_url} 
+                onChange={(e) => setBranchForm({...branchForm, map_url: e.target.value})} 
+                className="form-input" 
+              />
+            </div>
+            <Button type="submit" className="btn-primary w-full" disabled={submitting}>
+              {submitting ? "Saving..." : (editingBranch ? "Update Branch" : "Add Branch")}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
