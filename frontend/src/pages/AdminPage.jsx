@@ -77,6 +77,8 @@ const AdminPage = () => {
   const [cyberWarriorsEvents, setCyberWarriorsEvents] = useState([]);
   const [cyberWarriorsRegistrations, setCyberWarriorsRegistrations] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Modal states
@@ -91,6 +93,15 @@ const AdminPage = () => {
   const [showCwEventModal, setShowCwEventModal] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [showPopupModal, setShowPopupModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  const [showBranchModal, setShowBranchModal] = useState(false);
+  
+  // Edit mode states
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [editingReview, setEditingReview] = useState(null);
+  const [editingBlog, setEditingBlog] = useState(null);
+  const [editingTeam, setEditingTeam] = useState(null);
+  const [editingBranch, setEditingBranch] = useState(null);
 
   // Form states
   const [eventForm, setEventForm] = useState({ title: "", description: "", event_date: "", event_time: "", location: "", image_url: "" });
