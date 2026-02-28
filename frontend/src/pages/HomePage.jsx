@@ -1003,6 +1003,111 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      {team.length > 0 && (
+        <section className="py-20 bg-[#fafafa]" data-testid="team-section">
+          <div className="container-main">
+            <motion.div {...fadeInUp} className="text-center mb-16">
+              <Badge className="bg-[#1545ea]/10 text-[#1545ea] border-[#1545ea]/20 mb-4 px-4 py-2">
+                <Users className="w-4 h-4 mr-2" />
+                Our Team
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+                Meet Our Experts
+              </h2>
+              <p className="text-[#717171] max-w-2xl mx-auto">
+                Learn from passionate educators and industry professionals dedicated to your success
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {team.slice(0, 4).map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group"
+                >
+                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#ebebeb]">
+                    {/* Photo */}
+                    <div className="relative h-64 overflow-hidden bg-gradient-to-br from-[#1545ea]/10 to-[#1545ea]/5">
+                      {member.photo_url ? (
+                        <img
+                          src={member.photo_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="w-20 h-20 bg-[#1545ea]/20 rounded-full flex items-center justify-center">
+                            <span className="text-3xl font-bold text-[#1545ea]">
+                              {member.name.charAt(0)}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Info */}
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold text-[#1a1a1a] mb-1 font-['Poppins']">
+                        {member.name}
+                      </h3>
+                      <p className="text-[#1545ea] font-medium text-sm mb-3">{member.title}</p>
+                      
+                      {/* Social Links */}
+                      <div className="flex items-center gap-2">
+                        {member.linkedin_url && (
+                          <a
+                            href={member.linkedin_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 bg-[#0077b5]/10 hover:bg-[#0077b5] text-[#0077b5] hover:text-white rounded-full flex items-center justify-center transition-all"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                          </a>
+                        )}
+                        {member.twitter_url && (
+                          <a
+                            href={member.twitter_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-8 h-8 bg-[#1da1f2]/10 hover:bg-[#1da1f2] text-[#1da1f2] hover:text-white rounded-full flex items-center justify-center transition-all"
+                          >
+                            <Twitter className="w-4 h-4" />
+                          </a>
+                        )}
+                        {member.email && (
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="w-8 h-8 bg-[#1545ea]/10 hover:bg-[#1545ea] text-[#1545ea] hover:text-white rounded-full flex items-center justify-center transition-all"
+                          >
+                            <Mail className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {team.length > 4 && (
+              <motion.div {...fadeInUp} className="text-center mt-12">
+                <Link to="/team">
+                  <Button className="btn-primary">
+                    View All Team Members
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+              </motion.div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* CTA Section */}
       <section className="py-20 bg-[#1545ea]" data-testid="cta-section">
         <div className="container-main text-center">
