@@ -36,6 +36,7 @@ const TeamPage = () => {
 
   return (
     <div className="pt-[72px] min-h-screen bg-[#fafafa]" data-testid="team-page">
+      <SEO pageSlug="team" />
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-[#1545ea] to-[#0d36c4] overflow-hidden">
         {/* Background Pattern */}

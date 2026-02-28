@@ -49,6 +49,7 @@ const AboutPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="about-page">
+      <SEO pageSlug="about" />
       {/* Page Header */}
       <section className="page-header" data-testid="page-header">
         <div className="container-main">

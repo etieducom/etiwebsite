@@ -113,6 +113,7 @@ const BlogsPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="blogs-page">
+      <SEO pageSlug="blogs" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

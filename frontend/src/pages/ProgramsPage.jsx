@@ -203,6 +203,7 @@ const ProgramsPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="programs-page">
+      <SEO pageSlug="programs" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

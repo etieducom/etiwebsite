@@ -98,6 +98,7 @@ const ContactPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="contact-page">
+      <SEO pageSlug="contact" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">
