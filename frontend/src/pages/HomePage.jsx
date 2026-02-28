@@ -332,6 +332,7 @@ const HomePage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="home-page">
+      <SEO pageSlug="home" />
       {/* Hero Section */}
       <section className="hero-home py-20 lg:py-28" data-testid="hero-section">
         <div className="container-main">
