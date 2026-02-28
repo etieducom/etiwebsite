@@ -981,9 +981,6 @@ const AdminPage = () => {
               <TabsTrigger value="announcements" className="flex items-center gap-1 text-xs bg-[#1545ea]/10">
                 <MessageSquare className="w-3 h-3" /> Announcements ({announcements.length})
               </TabsTrigger>
-              <TabsTrigger value="navigation" className="flex items-center gap-1 text-xs bg-purple-500/10">
-                <Menu className="w-3 h-3" /> Navigation ({navItems.length})
-              </TabsTrigger>
             </TabsList>
 
             {/* Events Tab */}
