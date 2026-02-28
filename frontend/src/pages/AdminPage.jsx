@@ -389,18 +389,24 @@ const AdminPage = () => {
     try {
       const blogData = {
         ...blogForm,
-        tags: blogForm.tags.split(',').map(t => t.trim()).filter(t => t)
+        tags: typeof blogForm.tags === 'string' ? blogForm.tags.split(',').map(t => t.trim()).filter(t => t) : blogForm.tags
       };
-      await axios.post(`${API}/blogs`, blogData);
-      toast.success("Blog created successfully!");
+      if (editingBlog) {
+        await axios.put(`${API}/blogs/${editingBlog.id}`, blogData);
+        toast.success("Blog updated!");
+      } else {
+        await axios.post(`${API}/blogs`, blogData);
+        toast.success("Blog created!");
+      }
       setShowBlogModal(false);
+      setEditingBlog(null);
       setBlogForm({
         title: "", slug: "", excerpt: "", content: "", featured_image: "", category: "", 
         tags: "", author: "ETI Educom", read_time: 5, is_featured: false, meta_title: "", meta_description: ""
       });
       fetchData();
     } catch (error) {
-      toast.error("Failed to create blog");
+      toast.error("Failed to save blog");
     } finally {
       setSubmitting(false);
     }
