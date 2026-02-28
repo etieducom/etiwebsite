@@ -316,13 +316,19 @@ const AdminPage = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await axios.post(`${API}/reviews`, reviewForm);
-      toast.success("Review added successfully!");
+      if (editingReview) {
+        await axios.put(`${API}/reviews/${editingReview.id}`, reviewForm);
+        toast.success("Review updated!");
+      } else {
+        await axios.post(`${API}/reviews`, reviewForm);
+        toast.success("Review added!");
+      }
       setShowReviewModal(false);
+      setEditingReview(null);
       setReviewForm({ student_name: "", course: "", review_text: "", photo_url: "", rating: 5 });
       fetchData();
     } catch (error) {
-      toast.error("Failed to add review");
+      toast.error("Failed to save review");
     } finally {
       setSubmitting(false);
     }
