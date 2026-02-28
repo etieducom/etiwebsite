@@ -191,7 +191,7 @@ const AdminPage = () => {
 
   const fetchData = async () => {
     try {
-      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes, popupModalRes, teamRes, branchesRes] = await Promise.all([
+      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes, popupModalRes, teamRes, branchesRes, navRes] = await Promise.all([
         axios.get(`${API}/events?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/jobs?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/reviews?active_only=false`).catch(() => ({ data: [] })),
@@ -210,7 +210,8 @@ const AdminPage = () => {
         axios.get(`${API}/announcements?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/popup-modal/admin`).catch(() => ({ data: null })),
         axios.get(`${API}/team?active_only=false`).catch(() => ({ data: [] })),
-        axios.get(`${API}/branches?active_only=false`).catch(() => ({ data: [] }))
+        axios.get(`${API}/branches?active_only=false`).catch(() => ({ data: [] })),
+        axios.get(`${API}/navigation/all`).catch(() => ({ data: [] }))
       ]);
       setEvents(eventsRes.data);
       setJobs(jobsRes.data);
