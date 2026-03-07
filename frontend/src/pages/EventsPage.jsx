@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { Calendar, MapPin, Clock, ChevronRight, X } from "lucide-react";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
@@ -83,6 +84,7 @@ const EventsPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="events-page">
+      <SEO pageSlug="events" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

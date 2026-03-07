@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import SEO from "../components/SEO";
 import { 
   Phone, 
   CheckCircle, 
@@ -102,6 +103,7 @@ const FreeCounsellingPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1545ea] via-[#0d36c4] to-[#1545ea]" data-testid="free-counselling-page">
+      <SEO pageSlug="free-counselling" />
       {/* Hero Section */}
       <div className="container-main py-8 lg:py-12">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[calc(100vh-4rem)]">

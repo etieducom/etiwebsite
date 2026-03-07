@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronRight, Quote } from "lucide-react";
 import { Button } from "../components/ui/button";
+import SEO from "../components/SEO";
 import { Badge } from "../components/ui/badge";
 
 const fadeInUp = {
@@ -15,6 +16,7 @@ const fadeInUp = {
 const FounderPage = () => {
   return (
     <div className="pt-[72px]" data-testid="founder-page">
+      <SEO pageSlug="founder" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

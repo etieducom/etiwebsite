@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
 import { Users, ChevronRight, Building2, CheckCircle } from "lucide-react";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
@@ -59,6 +60,7 @@ const HireFromUsPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="hire-from-us-page">
+      <SEO pageSlug="hire-from-us" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

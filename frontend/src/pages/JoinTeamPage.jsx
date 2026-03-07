@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
 import { Briefcase, ChevronRight, MapPin, Clock, Users } from "lucide-react";
+import SEO from "../components/SEO";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
@@ -116,6 +117,7 @@ const JoinTeamPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="join-team-page">
+      <SEO pageSlug="join-team" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

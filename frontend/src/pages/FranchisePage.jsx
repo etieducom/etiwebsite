@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
+import SEO from "../components/SEO";
 import { 
   Building2, 
   CheckCircle, 
@@ -116,6 +117,7 @@ const FranchisePage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="franchise-page">
+      <SEO pageSlug="franchise" />
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

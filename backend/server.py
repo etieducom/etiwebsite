@@ -2273,6 +2273,109 @@ async def delete_branch(branch_id: str):
     return {"message": "Branch deleted successfully"}
 
 
+# ============ Partners Models ============
+
+class Partner(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str = Field(..., min_length=1, max_length=100)
+    logo_url: str = Field(..., min_length=1)
+    website_url: Optional[str] = None
+    partner_type: str = Field(..., pattern="^(placement|certification)$")  # placement or certification
+    order: int = 0
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class PartnerCreate(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    logo_url: str = Field(..., min_length=1)
+    website_url: Optional[str] = None
+    partner_type: str = Field(..., pattern="^(placement|certification)$")
+    order: int = 0
+    is_active: bool = True
+
+
+class PartnerUpdate(BaseModel):
+    name: Optional[str] = None
+    logo_url: Optional[str] = None
+    website_url: Optional[str] = None
+    order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+
+class PartnerResponse(BaseModel):
+    id: str
+    name: str
+    logo_url: str
+    website_url: Optional[str]
+    partner_type: str
+    order: int
+    is_active: bool
+    created_at: str
+
+
+# ============ Partners Routes ============
+
+@api_router.post("/partners", response_model=PartnerResponse)
+async def create_partner(input: PartnerCreate):
+    try:
+        partner_dict = input.model_dump()
+        partner_obj = Partner(**partner_dict)
+        doc = partner_obj.model_dump()
+        doc['created_at'] = doc['created_at'].isoformat()
+        await db.partners.insert_one(doc)
+        return PartnerResponse(**doc)
+    except Exception as e:
+        logging.error(f"Error creating partner: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create partner")
+
+
+@api_router.get("/partners", response_model=List[PartnerResponse])
+async def get_partners(partner_type: Optional[str] = None, active_only: bool = True):
+    query = {}
+    if active_only:
+        query["is_active"] = True
+    if partner_type:
+        query["partner_type"] = partner_type
+    partners = await db.partners.find(query, {"_id": 0}).sort("order", 1).to_list(100)
+    return [
+        PartnerResponse(
+            id=p['id'], name=p['name'], logo_url=p['logo_url'],
+            website_url=p.get('website_url'), partner_type=p['partner_type'],
+            order=p.get('order', 0), is_active=p.get('is_active', True),
+            created_at=p['created_at'] if isinstance(p['created_at'], str) else p['created_at'].isoformat()
+        ) for p in partners
+    ]
+
+
+@api_router.put("/partners/{partner_id}", response_model=PartnerResponse)
+async def update_partner(partner_id: str, input: PartnerUpdate):
+    update_data = {k: v for k, v in input.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields to update")
+    
+    result = await db.partners.update_one({"id": partner_id}, {"$set": update_data})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    
+    partner = await db.partners.find_one({"id": partner_id}, {"_id": 0})
+    return PartnerResponse(
+        id=partner['id'], name=partner['name'], logo_url=partner['logo_url'],
+        website_url=partner.get('website_url'), partner_type=partner['partner_type'],
+        order=partner.get('order', 0), is_active=partner.get('is_active', True),
+        created_at=partner['created_at'] if isinstance(partner['created_at'], str) else partner['created_at'].isoformat()
+    )
+
+
+@api_router.delete("/partners/{partner_id}")
+async def delete_partner(partner_id: str):
+    result = await db.partners.delete_one({"id": partner_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    return {"message": "Partner deleted successfully"}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 

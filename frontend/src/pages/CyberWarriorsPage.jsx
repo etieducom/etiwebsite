@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
+import SEO from "../components/SEO";
 import { 
   Shield, 
   Users, 
@@ -167,6 +168,7 @@ const CyberWarriorsPage = () => {
 
   return (
     <div className="bg-[#0a0a0a] min-h-screen" data-testid="cyber-warriors-page">
+      <SEO pageSlug="cyber-warriors" />
       {/* Hero Section - Full Screen */}
       <section className="relative min-h-screen flex items-center pt-[72px] overflow-hidden">
         {/* Background Elements */}

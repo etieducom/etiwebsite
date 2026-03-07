@@ -21,7 +21,8 @@ import {
   Lock,
   LogOut,
   Code,
-  Bell
+  Bell,
+  Award
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
@@ -79,6 +80,7 @@ const AdminPage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Modal states
@@ -95,6 +97,7 @@ const AdminPage = () => {
   const [showPopupModal, setShowPopupModal] = useState(false);
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [showBranchModal, setShowBranchModal] = useState(false);
+  const [showPartnerModal, setShowPartnerModal] = useState(false);
   
   // Edit mode states
   const [editingEvent, setEditingEvent] = useState(null);
@@ -103,6 +106,7 @@ const AdminPage = () => {
   const [editingTeam, setEditingTeam] = useState(null);
   const [editingBranch, setEditingBranch] = useState(null);
   const [editingProgram, setEditingProgram] = useState(null);
+  const [editingPartner, setEditingPartner] = useState(null);
 
   // Form states
   const [eventForm, setEventForm] = useState({ title: "", description: "", event_date: "", event_time: "", location: "", image_url: "" });
@@ -125,6 +129,9 @@ const AdminPage = () => {
   const [branchForm, setBranchForm] = useState({ 
     name: "", slug: "", address: "", city: "", state: "", phone: "", email: "", 
     map_url: "", image_url: "", description: "", facilities: "", timings: "", order: 0 
+  });
+  const [partnerForm, setPartnerForm] = useState({ 
+    name: "", logo_url: "", website_url: "", partner_type: "placement", order: 0 
   });
   const [popupModalForm, setPopupModalForm] = useState({ 
     title: "", body: "", image_url: "", cta_text: "", cta_link: "", delay_seconds: 4 
@@ -186,7 +193,7 @@ const AdminPage = () => {
 
   const fetchData = async () => {
     try {
-      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes, popupModalRes, teamRes, branchesRes] = await Promise.all([
+      const [eventsRes, jobsRes, reviewsRes, programsRes, enquiriesRes, blogsRes, faqsRes, seoRes, franchiseRes, counsellingRes, summerRes, quickRes, techSeoRes, cwEventsRes, cwRegsRes, announcementsRes, popupModalRes, teamRes, branchesRes, partnersRes] = await Promise.all([
         axios.get(`${API}/events?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/jobs?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/reviews?active_only=false`).catch(() => ({ data: [] })),
@@ -205,7 +212,8 @@ const AdminPage = () => {
         axios.get(`${API}/announcements?active_only=false`).catch(() => ({ data: [] })),
         axios.get(`${API}/popup-modal/admin`).catch(() => ({ data: null })),
         axios.get(`${API}/team?active_only=false`).catch(() => ({ data: [] })),
-        axios.get(`${API}/branches?active_only=false`).catch(() => ({ data: [] }))
+        axios.get(`${API}/branches?active_only=false`).catch(() => ({ data: [] })),
+        axios.get(`${API}/partners?active_only=false`).catch(() => ({ data: [] }))
       ]);
       setEvents(eventsRes.data);
       setJobs(jobsRes.data);
@@ -226,6 +234,7 @@ const AdminPage = () => {
       setPopupModalData(popupModalRes.data);
       setTeamMembers(teamRes.data);
       setBranches(branchesRes.data);
+      setPartners(partnersRes.data);
       // Pre-populate popup modal form if data exists
       if (popupModalRes.data) {
         setPopupModalForm({
@@ -803,6 +812,52 @@ const AdminPage = () => {
     }
   };
 
+  // Partner handlers
+  const handlePartnerSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      if (editingPartner) {
+        await axios.put(`${API}/partners/${editingPartner.id}`, partnerForm);
+        toast.success("Partner updated!");
+      } else {
+        await axios.post(`${API}/partners`, partnerForm);
+        toast.success("Partner added!");
+      }
+      setShowPartnerModal(false);
+      setEditingPartner(null);
+      setPartnerForm({ name: "", logo_url: "", website_url: "", partner_type: "placement", order: 0 });
+      fetchData();
+    } catch (error) {
+      toast.error("Failed to save partner");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleEditPartner = (partner) => {
+    setEditingPartner(partner);
+    setPartnerForm({
+      name: partner.name,
+      logo_url: partner.logo_url,
+      website_url: partner.website_url || "",
+      partner_type: partner.partner_type,
+      order: partner.order || 0
+    });
+    setShowPartnerModal(true);
+  };
+
+  const handleDeletePartner = async (id) => {
+    if (!window.confirm("Delete this partner?")) return;
+    try {
+      await axios.delete(`${API}/partners/${id}`);
+      toast.success("Partner deleted");
+      fetchData();
+    } catch (error) {
+      toast.error("Failed to delete");
+    }
+  };
+
   // Edit handlers for existing items
   const handleEditEvent = (event) => {
     setEditingEvent(event);
@@ -1006,6 +1061,9 @@ const AdminPage = () => {
               </TabsTrigger>
               <TabsTrigger value="announcements" className="flex items-center gap-1 text-xs bg-[#1545ea]/10">
                 <MessageSquare className="w-3 h-3" /> Announcements ({announcements.length})
+              </TabsTrigger>
+              <TabsTrigger value="partners" className="flex items-center gap-1 text-xs bg-amber-500/10">
+                <Award className="w-3 h-3" /> Partners ({partners.length})
               </TabsTrigger>
             </TabsList>
 
@@ -1784,6 +1842,79 @@ const AdminPage = () => {
                 )}
               </div>
             </TabsContent>
+
+            {/* Partners Tab */}
+            <TabsContent value="partners">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-[#1a1a1a]">Placement & Certification Partners</h2>
+                  <p className="text-sm text-[#717171]">Manage partner logos displayed on homepage</p>
+                </div>
+                <Button className="btn-primary" onClick={() => {
+                  setEditingPartner(null);
+                  setPartnerForm({ name: "", logo_url: "", website_url: "", partner_type: "placement", order: 0 });
+                  setShowPartnerModal(true);
+                }} data-testid="add-partner-btn">
+                  <Plus className="w-4 h-4" /> Add Partner
+                </Button>
+              </div>
+              
+              {/* Placement Partners */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-[#1a1a1a] mb-4">Placement Partners</h3>
+                {partners.filter(p => p.partner_type === 'placement').length === 0 ? (
+                  <Card className="card-default"><CardContent className="p-6 text-center">
+                    <Award className="w-10 h-10 text-[#b0b0b0] mx-auto mb-2" />
+                    <p className="text-sm text-[#717171]">No placement partners yet</p>
+                  </CardContent></Card>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {partners.filter(p => p.partner_type === 'placement').sort((a,b) => a.order - b.order).map((partner) => (
+                      <Card key={partner.id} className="card-default">
+                        <CardContent className="p-4 text-center">
+                          <img src={partner.logo_url} alt={partner.name} className="h-12 object-contain mx-auto mb-2" />
+                          <p className="text-sm font-medium text-[#1a1a1a] truncate">{partner.name}</p>
+                          <div className="flex justify-center gap-2 mt-2">
+                            <Button variant="ghost" size="sm" onClick={() => handleEditPartner(partner)}>Edit</Button>
+                            <Button variant="ghost" size="sm" className="text-red-500" onClick={() => handleDeletePartner(partner.id)}>
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* Certification Partners */}
+              <div>
+                <h3 className="text-lg font-semibold text-[#1a1a1a] mb-4">Certification Partners</h3>
+                {partners.filter(p => p.partner_type === 'certification').length === 0 ? (
+                  <Card className="card-default"><CardContent className="p-6 text-center">
+                    <Award className="w-10 h-10 text-[#b0b0b0] mx-auto mb-2" />
+                    <p className="text-sm text-[#717171]">No certification partners yet</p>
+                  </CardContent></Card>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {partners.filter(p => p.partner_type === 'certification').sort((a,b) => a.order - b.order).map((partner) => (
+                      <Card key={partner.id} className="card-default">
+                        <CardContent className="p-4 text-center">
+                          <img src={partner.logo_url} alt={partner.name} className="h-12 object-contain mx-auto mb-2" />
+                          <p className="text-sm font-medium text-[#1a1a1a] truncate">{partner.name}</p>
+                          <div className="flex justify-center gap-2 mt-2">
+                            <Button variant="ghost" size="sm" onClick={() => handleEditPartner(partner)}>Edit</Button>
+                            <Button variant="ghost" size="sm" className="text-red-500" onClick={() => handleDeletePartner(partner.id)}>
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </TabsContent>
           </Tabs>
         </div>
       </section>
@@ -2481,6 +2612,62 @@ const AdminPage = () => {
             </div>
             <Button type="submit" className="btn-primary w-full" disabled={submitting}>
               {submitting ? "Saving..." : (editingBranch ? "Update Branch" : "Add Branch")}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Partner Modal */}
+      <Dialog open={showPartnerModal} onOpenChange={(open) => { setShowPartnerModal(open); if (!open) setEditingPartner(null); }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{editingPartner ? 'Edit Partner' : 'Add Partner'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handlePartnerSubmit} className="space-y-4">
+            <Input 
+              placeholder="Partner Name *" 
+              value={partnerForm.name} 
+              onChange={(e) => setPartnerForm({...partnerForm, name: e.target.value})} 
+              required 
+              className="form-input" 
+            />
+            <Input 
+              placeholder="Logo URL *" 
+              value={partnerForm.logo_url} 
+              onChange={(e) => setPartnerForm({...partnerForm, logo_url: e.target.value})} 
+              required 
+              className="form-input" 
+            />
+            <Input 
+              placeholder="Website URL (optional)" 
+              value={partnerForm.website_url} 
+              onChange={(e) => setPartnerForm({...partnerForm, website_url: e.target.value})} 
+              className="form-input" 
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <Select value={partnerForm.partner_type} onValueChange={(v) => setPartnerForm({...partnerForm, partner_type: v})}>
+                <SelectTrigger className="form-input"><SelectValue placeholder="Type" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="placement">Placement Partner</SelectItem>
+                  <SelectItem value="certification">Certification Partner</SelectItem>
+                </SelectContent>
+              </Select>
+              <Input 
+                type="number" 
+                placeholder="Order" 
+                value={partnerForm.order} 
+                onChange={(e) => setPartnerForm({...partnerForm, order: parseInt(e.target.value) || 0})} 
+                className="form-input" 
+              />
+            </div>
+            {partnerForm.logo_url && (
+              <div className="p-4 bg-[#fafafa] rounded-lg text-center">
+                <p className="text-xs text-[#717171] mb-2">Logo Preview:</p>
+                <img src={partnerForm.logo_url} alt="Preview" className="h-16 object-contain mx-auto" />
+              </div>
+            )}
+            <Button type="submit" className="btn-primary w-full" disabled={submitting}>
+              {submitting ? "Saving..." : (editingPartner ? "Update Partner" : "Add Partner")}
             </Button>
           </form>
         </DialogContent>

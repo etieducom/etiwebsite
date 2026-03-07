@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import SEO from "../components/SEO";
 import { 
   HelpCircle, 
   ChevronDown,
@@ -132,6 +133,8 @@ const FAQPage = () => {
 
   return (
     <div className="pt-[72px]" data-testid="faq-page">
+      <SEO pageSlug="faq" />
+      {/* Page Header */}
       {/* Page Header */}
       <section className="page-header">
         <div className="container-main">

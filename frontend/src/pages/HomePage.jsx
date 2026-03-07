@@ -219,21 +219,34 @@ const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [team, setTeam] = useState([]);
+  const [placementPartners, setPlacementPartners] = useState([]);
+  const [certificationPartners, setCertificationPartners] = useState([]);
 
   useEffect(() => {
     fetchReviews();
     fetchEvents();
     fetchBlogs();
     fetchTeam();
+    fetchPartners();
   }, []);
 
   const fetchReviews = async () => {
     try {
       const response = await axios.get(`${API}/reviews`);
-      setReviews(response.data.length > 0 ? response.data : sampleReviews);
+      setReviews(response.data);
     } catch (error) {
       console.error("Error fetching reviews:", error);
-      setReviews(sampleReviews);
+      setReviews([]);
+    }
+  };
+
+  const fetchPartners = async () => {
+    try {
+      const response = await axios.get(`${API}/partners`);
+      setPlacementPartners(response.data.filter(p => p.partner_type === 'placement'));
+      setCertificationPartners(response.data.filter(p => p.partner_type === 'certification'));
+    } catch (error) {
+      console.error("Error fetching partners:", error);
     }
   };
 
@@ -265,7 +278,7 @@ const HomePage = () => {
     }
   };
 
-  const displayReviews = reviews.length > 0 ? reviews : sampleReviews;
+  const displayReviews = reviews;
   const displayEvents = events.length > 0 ? events.slice(0, 6) : sampleEvents;
   
   // Sample blogs for fallback
@@ -551,56 +564,109 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Student Reviews Slider */}
-      <section className="py-20 md:py-28 section-grey" data-testid="reviews-section">
-        <div className="container-main">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
-              <Star className="w-4 h-4 mr-1" />
-              Student Success Stories
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
-              What Our Students Say
-            </h2>
-          </motion.div>
+      {/* Student Reviews Slider - Only show if reviews exist */}
+      {displayReviews.length > 0 && (
+        <section className="py-20 md:py-28 section-grey" data-testid="reviews-section">
+          <div className="container-main">
+            <motion.div {...fadeInUp} className="text-center mb-16">
+              <Badge className="bg-[#1545ea]/10 text-[#1545ea] mb-4">
+                <Star className="w-4 h-4 mr-1" />
+                Student Success Stories
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4 font-['Poppins']">
+                What Our Students Say
+              </h2>
+            </motion.div>
 
-          {/* Reviews Slider */}
-          <div className="overflow-hidden">
-            <div className="flex gap-6 animate-marquee">
-              {[...displayReviews, ...displayReviews].map((review, index) => (
-                <div 
-                  key={`${review.id}-${index}`}
-                  className="flex-shrink-0 w-[350px]"
-                >
-                  <Card className="review-card h-full" data-testid={`review-${review.id}`}>
-                    <CardContent className="p-6 pt-10">
-                      <div className="flex items-center gap-1 mb-4">
-                        {[...Array(review.rating || 5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-[#1545ea] text-[#1545ea]" />
-                        ))}
-                      </div>
-                      <p className="text-[#4a4a4a] mb-6 text-sm leading-relaxed">
-                        "{review.review_text}"
-                      </p>
-                      <div className="flex items-center gap-4">
-                        <img 
-                          src={review.photo_url || `https://ui-avatars.com/api/?name=${review.student_name}&background=1545ea&color=fff`}
-                          alt={review.student_name}
-                          className="w-12 h-12 rounded-full object-cover"
-                        />
-                        <div>
-                          <p className="font-semibold text-[#1a1a1a]">{review.student_name}</p>
-                          <p className="text-sm text-[#717171]">{review.course}</p>
+            {/* Reviews Slider */}
+            <div className="overflow-hidden">
+              <div className="flex gap-6 animate-marquee">
+                {[...displayReviews, ...displayReviews].map((review, index) => (
+                  <div 
+                    key={`${review.id}-${index}`}
+                    className="flex-shrink-0 w-[350px]"
+                  >
+                    <Card className="review-card h-full" data-testid={`review-${review.id}`}>
+                      <CardContent className="p-6 pt-10">
+                        <div className="flex items-center gap-1 mb-4">
+                          {[...Array(review.rating || 5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-[#1545ea] text-[#1545ea]" />
+                          ))}
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
+                        <p className="text-[#4a4a4a] mb-6 text-sm leading-relaxed">
+                          "{review.review_text}"
+                        </p>
+                        <div className="flex items-center gap-4">
+                          <img 
+                            src={review.photo_url || `https://ui-avatars.com/api/?name=${review.student_name}&background=1545ea&color=fff`}
+                            alt={review.student_name}
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                          <div>
+                            <p className="font-semibold text-[#1a1a1a]">{review.student_name}</p>
+                            <p className="text-sm text-[#717171]">{review.course}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Partners Section */}
+      {(placementPartners.length > 0 || certificationPartners.length > 0) && (
+        <section className="py-16 bg-white" data-testid="partners-section">
+          <div className="container-main">
+            {placementPartners.length > 0 && (
+              <div className="mb-12">
+                <motion.div {...fadeInUp} className="text-center mb-8">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-2">Our Placement Partners</h3>
+                  <p className="text-[#717171]">Companies that hire our trained professionals</p>
+                </motion.div>
+                <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                  {placementPartners.map((partner) => (
+                    <motion.div key={partner.id} {...fadeInUp} className="grayscale hover:grayscale-0 transition-all">
+                      {partner.website_url ? (
+                        <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
+                          <img src={partner.logo_url} alt={partner.name} className="h-12 md:h-16 object-contain" />
+                        </a>
+                      ) : (
+                        <img src={partner.logo_url} alt={partner.name} className="h-12 md:h-16 object-contain" />
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {certificationPartners.length > 0 && (
+              <div>
+                <motion.div {...fadeInUp} className="text-center mb-8">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#1a1a1a] mb-2">Certification Partners</h3>
+                  <p className="text-[#717171]">Industry-recognized certifications we prepare you for</p>
+                </motion.div>
+                <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                  {certificationPartners.map((partner) => (
+                    <motion.div key={partner.id} {...fadeInUp} className="grayscale hover:grayscale-0 transition-all">
+                      {partner.website_url ? (
+                        <a href={partner.website_url} target="_blank" rel="noopener noreferrer">
+                          <img src={partner.logo_url} alt={partner.name} className="h-12 md:h-16 object-contain" />
+                        </a>
+                      ) : (
+                        <img src={partner.logo_url} alt={partner.name} className="h-12 md:h-16 object-contain" />
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Latest Events Section */}
       <section className="py-20 bg-white" data-testid="events-section">
