@@ -102,6 +102,7 @@ const AdminPage = () => {
   const [editingBlog, setEditingBlog] = useState(null);
   const [editingTeam, setEditingTeam] = useState(null);
   const [editingBranch, setEditingBranch] = useState(null);
+  const [editingProgram, setEditingProgram] = useState(null);
 
   // Form states
   const [eventForm, setEventForm] = useState({ title: "", description: "", event_date: "", event_time: "", location: "", image_url: "" });
@@ -362,19 +363,44 @@ const AdminPage = () => {
         certifications: programForm.certifications.filter(c => c.trim()),
         modules: programForm.modules.filter(m => m.trim())
       };
-      await axios.post(`${API}/programs`, programData);
-      toast.success("Program created successfully!");
+      if (editingProgram) {
+        await axios.put(`${API}/programs/${editingProgram.id}`, programData);
+        toast.success("Program updated successfully!");
+      } else {
+        await axios.post(`${API}/programs`, programData);
+        toast.success("Program created successfully!");
+      }
       setShowProgramModal(false);
+      setEditingProgram(null);
       setProgramForm({
         title: "", slug: "", description: "", category: "career_tracks", duration: "",
         outcomes: [""], suitable_for: "", certifications: [""], modules: [""], image_url: "", icon: "Monitor", order: 0
       });
       fetchData();
     } catch (error) {
-      toast.error("Failed to create program");
+      toast.error(editingProgram ? "Failed to update program" : "Failed to create program");
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEditProgram = (program) => {
+    setEditingProgram(program);
+    setProgramForm({
+      title: program.title || "",
+      slug: program.slug || "",
+      description: program.description || "",
+      category: program.category || "career_tracks",
+      duration: program.duration || "",
+      outcomes: program.outcomes?.length > 0 ? program.outcomes : [""],
+      suitable_for: program.suitable_for || "",
+      certifications: program.certifications?.length > 0 ? program.certifications : [""],
+      modules: program.modules?.length > 0 ? program.modules : [""],
+      image_url: program.image_url || "",
+      icon: program.icon || "Monitor",
+      order: program.order || 0
+    });
+    setShowProgramModal(true);
   };
 
   const handleDeleteProgram = async (programId) => {
@@ -1066,7 +1092,14 @@ const AdminPage = () => {
             <TabsContent value="programs">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold text-[#1a1a1a]">Manage Programs</h2>
-                <Button className="btn-primary" onClick={() => setShowProgramModal(true)} data-testid="add-program-btn">
+                <Button className="btn-primary" onClick={() => {
+                  setEditingProgram(null);
+                  setProgramForm({
+                    title: "", slug: "", description: "", category: "career_tracks", duration: "",
+                    outcomes: [""], suitable_for: "", certifications: [""], modules: [""], image_url: "", icon: "Monitor", order: 0
+                  });
+                  setShowProgramModal(true);
+                }} data-testid="add-program-btn">
                   <Plus className="w-4 h-4" /> Add Program
                 </Button>
               </div>
@@ -1083,10 +1116,16 @@ const AdminPage = () => {
                         <div>
                           <h3 className="font-semibold text-[#1a1a1a]">{program.title}</h3>
                           <p className="text-sm text-[#717171]">{program.category} | {program.duration}</p>
+                          <p className="text-xs text-[#b0b0b0]">/{program.slug} | {program.modules?.length || 0} modules</p>
                         </div>
-                        <Button variant="destructive" size="sm" onClick={() => handleDeleteProgram(program.id)}>
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm" onClick={() => handleEditProgram(program)}>
+                            Edit
+                          </Button>
+                          <Button variant="destructive" size="sm" onClick={() => handleDeleteProgram(program.id)}>
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
@@ -1792,10 +1831,10 @@ const AdminPage = () => {
       </Dialog>
 
       {/* Program Modal */}
-      <Dialog open={showProgramModal} onOpenChange={setShowProgramModal}>
+      <Dialog open={showProgramModal} onOpenChange={(open) => { setShowProgramModal(open); if (!open) setEditingProgram(null); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Add New Program</DialogTitle>
+            <DialogTitle>{editingProgram ? 'Edit Program' : 'Add New Program'}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleProgramSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -1817,7 +1856,76 @@ const AdminPage = () => {
             </div>
             <Input placeholder="Suitable For" value={programForm.suitable_for} onChange={(e) => setProgramForm({...programForm, suitable_for: e.target.value})} className="form-input" />
             <Input placeholder="Image URL (optional)" value={programForm.image_url} onChange={(e) => setProgramForm({...programForm, image_url: e.target.value})} className="form-input" />
-            <Button type="submit" className="btn-primary w-full" disabled={submitting}>{submitting ? "Creating..." : "Create Program"}</Button>
+            
+            {/* Modules */}
+            <div>
+              <label className="form-label">Course Modules</label>
+              {programForm.modules.map((module, index) => (
+                <div key={index} className="flex gap-2 mb-2">
+                  <Input 
+                    placeholder={`Module ${index + 1}`} 
+                    value={module} 
+                    onChange={(e) => {
+                      const newModules = [...programForm.modules];
+                      newModules[index] = e.target.value;
+                      setProgramForm({...programForm, modules: newModules});
+                    }} 
+                    className="form-input" 
+                  />
+                  {index === programForm.modules.length - 1 && (
+                    <Button type="button" variant="outline" onClick={() => setProgramForm({...programForm, modules: [...programForm.modules, ""]})}>+</Button>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {/* Outcomes */}
+            <div>
+              <label className="form-label">Learning Outcomes</label>
+              {programForm.outcomes.map((outcome, index) => (
+                <div key={index} className="flex gap-2 mb-2">
+                  <Input 
+                    placeholder={`Outcome ${index + 1}`} 
+                    value={outcome} 
+                    onChange={(e) => {
+                      const newOutcomes = [...programForm.outcomes];
+                      newOutcomes[index] = e.target.value;
+                      setProgramForm({...programForm, outcomes: newOutcomes});
+                    }} 
+                    className="form-input" 
+                  />
+                  {index === programForm.outcomes.length - 1 && (
+                    <Button type="button" variant="outline" onClick={() => setProgramForm({...programForm, outcomes: [...programForm.outcomes, ""]})}>+</Button>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            {/* Certifications */}
+            <div>
+              <label className="form-label">Certifications</label>
+              {programForm.certifications.map((cert, index) => (
+                <div key={index} className="flex gap-2 mb-2">
+                  <Input 
+                    placeholder={`Certification ${index + 1}`} 
+                    value={cert} 
+                    onChange={(e) => {
+                      const newCerts = [...programForm.certifications];
+                      newCerts[index] = e.target.value;
+                      setProgramForm({...programForm, certifications: newCerts});
+                    }} 
+                    className="form-input" 
+                  />
+                  {index === programForm.certifications.length - 1 && (
+                    <Button type="button" variant="outline" onClick={() => setProgramForm({...programForm, certifications: [...programForm.certifications, ""]})}>+</Button>
+                  )}
+                </div>
+              ))}
+            </div>
+            
+            <Button type="submit" className="btn-primary w-full" disabled={submitting}>
+              {submitting ? "Saving..." : (editingProgram ? "Update Program" : "Create Program")}
+            </Button>
           </form>
         </DialogContent>
       </Dialog>
